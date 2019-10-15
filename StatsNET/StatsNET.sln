@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29409.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Statistic.Basic", "Statistic.Basic\Statistic.Basic.csproj", "{BFDAC1A9-1E96-44A1-AB0E-D27D73F4D641}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Statistic.Basic", "Statistic.Basic\Statistic.Basic.csproj", "{BFDAC1A9-1E96-44A1-AB0E-D27D73F4D641}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Statistic.Basic.UnitTests", "Statistic.Basic.UnitTests\Statistic.Basic.UnitTests.csproj", "{A08D4A3B-FFEC-48E4-BB25-6CA0D5AF91FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Statistic.Basic.UnitTests", "NUnitTestProject1\Statistic.Basic.UnitTests.csproj", "{C28263F9-C3B5-4C6C-AB15-5B19298878DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{BFDAC1A9-1E96-44A1-AB0E-D27D73F4D641}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFDAC1A9-1E96-44A1-AB0E-D27D73F4D641}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFDAC1A9-1E96-44A1-AB0E-D27D73F4D641}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A08D4A3B-FFEC-48E4-BB25-6CA0D5AF91FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A08D4A3B-FFEC-48E4-BB25-6CA0D5AF91FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A08D4A3B-FFEC-48E4-BB25-6CA0D5AF91FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A08D4A3B-FFEC-48E4-BB25-6CA0D5AF91FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C28263F9-C3B5-4C6C-AB15-5B19298878DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C28263F9-C3B5-4C6C-AB15-5B19298878DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C28263F9-C3B5-4C6C-AB15-5B19298878DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C28263F9-C3B5-4C6C-AB15-5B19298878DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
