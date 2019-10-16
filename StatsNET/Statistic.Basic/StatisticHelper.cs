@@ -48,10 +48,15 @@ namespace Statistic.Basic
 
                 foreach (var data in sortedDataset)
                 {
-                    if (DataIsInRange(data, start, end))
+
+                    if (data < end)
                     {
-                        absoluteFrequencies[end]++;
+                        if (DataIsInRange(data, start, end))
+                        {
+                            absoluteFrequencies[end]++;
+                        }
                     }
+
                 }
                 
             }         

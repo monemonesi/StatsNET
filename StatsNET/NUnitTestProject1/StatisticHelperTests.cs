@@ -30,6 +30,8 @@ namespace Statistic.Basic.UnitTests
         }
 
         [TestCase("1,3,5", "0.0,4.0,10.0", "2,1")]
+        [TestCase("-1,0,1,3,5", "-2.0,4.0,10.0","4,1")]
+        //[TestCase("-1,0,1,3,5", "0.0,5.5", "1,4")]
         public void GetAbsoluteFrequencies(string data, string intervals, string expected)
         {
             GivenASetOfData(data);
