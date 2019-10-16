@@ -14,20 +14,30 @@ namespace Statistic.Basic
         /// <returns></returns>
         public static int GetAbsoluteFrequencyForInterval(this IList<double> dataset, double start, double end)
         {
-            int result = 0;
+            int absoluteFrequency = 0;
 
             foreach(var data in dataset)
             {
-                if (DataIsInRange(data, start, end))
-                    result++;
+                absoluteFrequency = IncreaseAbsFreqIfDataIsInRange(start, end, absoluteFrequency, data);
             }
 
-            return result;
+            return absoluteFrequency;
         }
 
-        public static List<int> GetAbsoluteFrequenciesForIntervals(this IList<double> dataset, IList<double> intervals)
+        private static int IncreaseAbsFreqIfDataIsInRange(double start, double end, int absoluteFrequency, double data)
         {
-            return null;
+            if (DataIsInRange(data, start, end))
+                absoluteFrequency++;
+            return absoluteFrequency;
+        }
+
+        public static List<int> GetAbsoluteFrequenciesForIntervals(
+            this IList<double> dataset, IList<double> intervals)
+        {
+            List<int> absoluteFrequencies = new List<int>();
+            
+            
+            return absoluteFrequencies;
         }
 
         private static bool DataIsInRange(double data, double start, double end)
