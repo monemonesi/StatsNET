@@ -6,31 +6,6 @@ namespace Statistic.Basic
 {
     public static class StatisticHelper
     {
-        /// <summary>
-        /// Given a dataset finds the absolute frequency for a specified range. The upper bound is exclusive
-        /// </summary>
-        /// <param name="dataset"></param>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <returns></returns>
-        public static int GetAbsoluteFrequencyForInterval(this IList<double> dataset, double start, double end)
-        {
-            int absoluteFrequency = 0;
-
-            foreach(var data in dataset)
-            {
-                absoluteFrequency = IncreaseAbsFreqIfDataIsInRange(start, end, absoluteFrequency, data);
-            }
-
-            return absoluteFrequency;
-        }
-
-        private static int IncreaseAbsFreqIfDataIsInRange(double start, double end, int absoluteFrequency, double data)
-        {
-            if (DataIsInRange(data, start, end))
-                absoluteFrequency++;
-            return absoluteFrequency;
-        }
 
         /// <summary>
         /// Given a Dataset and a series of intervals return the absolute frequencies for the requested intervals.
