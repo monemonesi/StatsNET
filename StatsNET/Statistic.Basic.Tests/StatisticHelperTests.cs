@@ -11,15 +11,15 @@ namespace Statistic.Basic.UnitTests
     public class StatisticHelperTests
     {
         IList<double> _dataSet, _intervals;
-        Dictionary<double,int> _absoluteFrequencies;
+        Dictionary<double, int> _absoluteFrequencies;
 
         //28, 35, 42, 90, 70, 56, 75, 66, 30, 89, 75, 64, 81, 69, 55, 83, 72, 68, 73, 16
 
         [TestCase("1,3,5", "0.0,4.0,10.0", "2,1")]
-        [TestCase("-1,0,1,3,5", "-2.0,4.0,10.0","4,1")]
-        [TestCase("-1,0,1,3,5", "0.0,5.5","4")]
+        [TestCase("-1,0,1,3,5", "-2.0,4.0,10.0", "4,1")]
+        [TestCase("-1,0,1,3,5", "0.0,5.5", "4")]
         [TestCase("-1,0,1,3,5", "-1.0,3", "3")]
-        [TestCase("1,3,5","0.0,0.5","0")]
+        [TestCase("1,3,5", "0.0,0.5", "0")]
         public void GetAbsoluteFrequencies(string data, string intervals, string expected)
         {
             GivenASetOfData(data);
@@ -47,7 +47,7 @@ namespace Statistic.Basic.UnitTests
 
         private void GivenASetOfData(string data)
         {
-            _dataSet = ParseStringToListOfDouble( data);
+            _dataSet = ParseStringToListOfDouble(data);
         }
 
         private List<double> ParseStringToListOfDouble(string dataAsString)
