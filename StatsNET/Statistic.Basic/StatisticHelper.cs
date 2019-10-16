@@ -32,6 +32,15 @@ namespace Statistic.Basic
             return absoluteFrequency;
         }
 
+        /// <summary>
+        /// Given a Dataset and a series of intervals return the absolute frequencies for the requested intervals.
+        /// The Upper bound is exclusive
+        /// </summary>
+        /// <param name="dataset"></param>
+        /// <param name="intervals"></param>
+        /// <returns name="AbsoluteFrequencies">
+        /// Dicitionary sorted by intervals with the absolute frequencies
+        /// </returns>
         public static Dictionary<double, int> GetAbsoluteFrequenciesForIntervals(
             this IList<double> dataset, IList<double> intervals)
         {
