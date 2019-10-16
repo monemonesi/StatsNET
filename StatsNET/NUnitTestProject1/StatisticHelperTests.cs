@@ -13,7 +13,7 @@ namespace Statistic.Basic.UnitTests
         IList<double> _dataSet, _intervals;
         double _startInterval, _endInterval;
         int _absoluteFrequency;
-        List<int> _absoluteFrequencies;
+        Dictionary<double,int> _absoluteFrequencies;
 
         //28, 35, 42, 90, 70, 56, 75, 66, 30, 89, 75, 64, 81, 69, 55, 83, 72, 68, 73, 16
         [TestCase("1,3,5", 0.0, 3.0, 1)]
@@ -46,7 +46,8 @@ namespace Statistic.Basic.UnitTests
         private void ThenItShouldReturnTheCorrectFrequencyForEachInterval(string expectedAsString)
         {
             List<int> expected = ParseStringToListOfInt(expectedAsString);
-            Assert.AreEqual(expected, _absoluteFrequencies);
+            List<int> results = _absoluteFrequencies.Values.ToList();
+            Assert.AreEqual(expected, results);
         }
 
   
