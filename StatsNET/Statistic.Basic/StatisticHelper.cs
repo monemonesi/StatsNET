@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Statistic.Basic
 {
@@ -31,11 +32,29 @@ namespace Statistic.Basic
             return absoluteFrequency;
         }
 
-        public static List<int> GetAbsoluteFrequenciesForIntervals(
+        public static Dictionary<double, int> GetAbsoluteFrequenciesForIntervals(
             this IList<double> dataset, IList<double> intervals)
         {
-            List<int> absoluteFrequencies = new List<int>();
-            
+            Dictionary<double, int> absoluteFrequencies = new Dictionary<double, int>();
+            IList<double> sortedDataset = dataset.OrderBy(m => m).ToList();
+            IList<double> sortedIntervals = intervals.OrderBy(m => m).ToList();
+
+            for (int i = 1; i < sortedIntervals.Count; i++)
+            {
+                var start = sortedIntervals[i-1];
+                var end = intervals[i];
+
+                absoluteFrequencies.TryAdd(end, 0);
+
+                foreach (var data in sortedDataset)
+                {
+                    if (DataIsInRange(data, start, end))
+                    {
+                        absoluteFrequencies[end]++;
+                    }
+                }
+                
+            }         
             
             return absoluteFrequencies;
         }
