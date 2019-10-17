@@ -16,10 +16,10 @@ namespace Statistic.Basic
         /// <returns name="AbsoluteFrequencies">
         /// Dicitionary sorted by intervals with the absolute frequencies
         /// </returns>
-        public static Dictionary<double, int> GetAbsoluteFrequenciesForIntervals(
+        public static Dictionary<double, double> GetAbsoluteFrequenciesForIntervals(
             this IList<double> dataset, IList<double> intervals)
         {
-            Dictionary<double, int> absoluteFrequencies = new Dictionary<double, int>();
+            Dictionary<double, double> absoluteFrequencies = new Dictionary<double, double>();
             IList<double> sortedDataset = dataset.OrderBy(m => m).ToList();
             IList<double> sortedIntervals = intervals.OrderBy(m => m).ToList();
 
@@ -49,10 +49,16 @@ namespace Statistic.Basic
         }
 
         public static Dictionary<double,double> GetRelativeFrequenciesForIntervals(
-            this IList<double> dataset, IList<double> intervals)
+            this IList<double> dataset, IList<double> intervals, int roundTo)
         {
+            Dictionary<double,double> absoluteFrequencies = dataset.GetAbsoluteFrequenciesForIntervals(intervals);
             Dictionary<double, double> relativeFrequencies = new Dictionary<double, double>();
+            int samples = dataset.Count();
 
+            foreach (var key in absoluteFrequencies.Keys)
+            {
+                relativeFrequencies[key] = Math.Round(absoluteFrequencies[key]/samples, roundTo);
+            }
 
             return relativeFrequencies;
         }
