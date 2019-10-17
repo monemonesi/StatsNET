@@ -27,7 +27,10 @@ namespace Statistic.Basic.UnitTests
             ThenItShouldReturnTheCorrectAbsFrequencyForEachInterval(expected);
         }
 
-        [TestCase("1,3,5", "0.0,4.0,10.0", "0.67,0.33",2)]
+        [TestCase("1,3,5", "0.0,4.0,10.0", "0.67,0.33", 2)]
+        [TestCase("-1,0,1,3,5", "-2.0,4.0,10.0", "0.800,0.200",3)]
+        [TestCase("1,3,5", "0.0,4.0,10.0", "0.7,0.3", 1)]
+        [TestCase("1,3,5", "0.0,0.5", "0", 5)]
         public void GetRelativeFrequencies(string data, string intervals, string expected, int roundTo)
         {
             GivenASetOfData(data);
@@ -75,9 +78,5 @@ namespace Statistic.Basic.UnitTests
             return dataAsString.Split(',').Select(double.Parse).ToList();
         }
 
-        private List<int> ParseStringToListOfInt(string dataAsString)
-        {
-            return dataAsString.Split(',').Select(int.Parse).ToList();
-        }
     }
 }
