@@ -14,7 +14,7 @@ namespace Statistic.Basic
         /// <param name="dataset"></param>
         /// <param name="intervals"></param>
         /// <returns name="AbsoluteFrequencies">
-        /// Dicitionary sorted by intervals with the absolute frequencies
+        /// Dictionary sorted by intervals with the absolute frequencies
         /// </returns>
         public static Dictionary<double, double> GetAbsoluteFrequenciesForIntervals(
             this IList<double> dataset, IList<double> intervals)
@@ -32,22 +32,24 @@ namespace Statistic.Basic
 
                 foreach (var data in sortedDataset)
                 {
-
-                    if (data < end)
-                    {
-                        if (DataIsInRange(data, start, end))
-                        {
-                            absoluteFrequencies[end]++;
-                        }
-                    }
-
+                    CalculateAbsoluteFrequency(absoluteFrequencies, start, end, data);
                 }
-                
+
             }         
             
             return absoluteFrequencies;
         }
 
+        /// <summary>
+        /// Given a Dataset and a series of intervals return the relative frequencies for the requested intervals.
+        /// The Upper bound is exclusive
+        /// </summary>
+        /// <param name="dataset"></param>
+        /// <param name="intervals"></param>
+        /// <param name="roundTo"></param>
+        /// <returns name ="relativeFrequencies">
+        /// Dictionary sorted by intervals with the absolute frequencies
+        /// </returns>
         public static Dictionary<double,double> GetRelativeFrequenciesForIntervals(
             this IList<double> dataset, IList<double> intervals, int roundTo)
         {
@@ -63,6 +65,16 @@ namespace Statistic.Basic
             return relativeFrequencies;
         }
 
+        private static void CalculateAbsoluteFrequency(Dictionary<double, double> absoluteFrequencies, double start, double end, double data)
+        {
+            if (data < end)
+            {
+                if (DataIsInRange(data, start, end))
+                {
+                    absoluteFrequencies[end]++;
+                }
+            }
+        }
 
         private static bool DataIsInRange(double data, double start, double end)
         {
