@@ -67,13 +67,8 @@ namespace Statistic.Basic
 
         private static void CalculateAbsoluteFrequency(Dictionary<double, double> absoluteFrequencies, double start, double end, double data)
         {
-            if (data < end)
-            {
-                if (DataIsInRange(data, start, end))
-                {
-                    absoluteFrequencies[end]++;
-                }
-            }
+            if (DataIsInRange(data, start, end))
+                absoluteFrequencies[end]++;
         }
 
         private static bool DataIsInRange(double data, double start, double end)
