@@ -48,6 +48,16 @@ namespace Statistic.Basic
             return absoluteFrequencies;
         }
 
+        public static Dictionary<double,double> GetRelativeFrequenciesForIntervals(
+            this IList<double> dataset, IList<double> intervals)
+        {
+            Dictionary<double, double> relativeFrequencies = new Dictionary<double, double>();
+
+
+            return relativeFrequencies;
+        }
+
+
         private static bool DataIsInRange(double data, double start, double end)
         {
             return data >= start && data < end;
