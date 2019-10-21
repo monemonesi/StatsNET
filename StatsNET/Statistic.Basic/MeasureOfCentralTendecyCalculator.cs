@@ -7,11 +7,22 @@ namespace Statistic.Basic
 {
     public static class MeasureOfCentralTendecyCalculator
     {
+        /// <summary>
+        /// Given a dataset it calculates the arithmetic mean
+        /// </summary>
+        /// <param name="dataset"></param>
+        /// <returns></returns>
         public static double Mean(this IList<double> dataset)
         {
             return dataset.Sum() / dataset.Count; 
         }
 
+        /// <summary>
+        /// Given a dataset and its relativeFrequencies it calculates the weighted mean
+        /// </summary>
+        /// <param name="dataset"></param>
+        /// <param name="relativeFreq"></param>
+        /// <returns></returns>
         public static double WeightedMean(this IList<double> dataset, IList<double> relativeFreq)
         {
             if (dataset.Count != relativeFreq.Count)
