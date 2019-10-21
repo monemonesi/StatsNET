@@ -57,5 +57,12 @@ namespace Statistic.Basic
 
             return median;
         }
+
+        public static IList<double> Quantile(this IList<double> dataset)
+        {
+            IList<double> quantiles = new List<double>();
+
+            return quantiles;
+        }
     }
 }

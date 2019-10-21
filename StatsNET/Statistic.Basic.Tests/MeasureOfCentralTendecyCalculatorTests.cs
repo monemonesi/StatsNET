@@ -9,7 +9,7 @@ namespace Statistic.Basic.Tests
     class MeasureOfCentralTendecyCalculatorTests : BaseTestClass
     {
         private double _mean, _weightedMean, _median;
-        private IList<double> _relativeFrequencies;
+        private IList<double> _relativeFrequencies, _quantiles, _percentages;
 
         [TestCase("22,24,21,30,28,29", 25.66667)]
         [TestCase("1,1,1,1",1)]
@@ -17,7 +17,7 @@ namespace Statistic.Basic.Tests
         public void ArithmeticMeanShouldReturnTheCorrectValue(string data, double expected)
         {
             GivenASetOfData(data);
-            WhenMeanIsCalled();
+            WhenTheMeanIsCalculated();
             ThenItShouldReturnTheExpectedValue(_mean,expected);
         }
 
@@ -27,7 +27,7 @@ namespace Statistic.Basic.Tests
         public void ArithmeticMeanProperties(string data)
         {
             GivenASetOfData(data);
-            WhenMeanIsCalled();
+            WhenTheMeanIsCalculated();
             ThenTheSumOfTheDeviationOfEachVariableShoulbBeZero();
         }
 
@@ -36,7 +36,7 @@ namespace Statistic.Basic.Tests
         {
             GivenASetOfData(data);
             GivenTheRespectiveRelativeFrequecies(relativeFrequencies);
-            WhenWeightedMeanIsCalled();
+            WhenWeightedMeanIsCalculated();
             ThenItShouldReturnTheExpectedValue(_weightedMean, expected);
         }
 
@@ -57,11 +57,30 @@ namespace Statistic.Basic.Tests
         public void TheMedianShouldReturnTheCorrectValue(string data, double exptected)
         {
             GivenASetOfData(data);
-            WhenMedianIsCalled();
+            WhenMedianIsCalculated();
             ThenItShouldReturnTheExpectedValue(_median, exptected);
         }
 
-        private void WhenMedianIsCalled()
+        [TestCase("22.46,24.1,21.78,30.954", "0,0.25,0.50,0.75,1" , "21.7800,22.2900,23.2800,25.8135,30.9540")]
+        //[TestCase("22,24,21,30,28", 24)]
+        //[TestCase("22,24,21,30,28,29", 26)]
+        //[TestCase("22,21.18,15.98,24,21,30,28,29,29,29,29", 28)]
+        //[TestCase("-22,-24.67,-21.9,30.21,28,29", 3.05)]
+        //[TestCase("22,24,21,22,25,26,25,24,23,25,25,26,27,25,26", 25)]
+        public void TheQuantileShoulReturnTheCorrectValue(string data, string percentages, string expected)
+        {
+            GivenASetOfData(data);
+            _percentages = GivenASetOfPercentages(percentages);
+            WhenQuantilesAreCalculated();
+            ThenItShouldReturnTheExpectedValues(_quantiles, _percentages);
+        }
+
+        private void WhenQuantilesAreCalculated()
+        {
+            _quantiles = _dataSet.Quantile();
+        }
+
+        private void WhenMedianIsCalculated()
         {
             _median = Math.Round(_dataSet.Median(),5);
         }
@@ -79,10 +98,10 @@ namespace Statistic.Basic.Tests
 
         private void ThenAnExceptionShouldBeThrown()
         {
-            Assert.Throws<ArgumentException>(() => WhenWeightedMeanIsCalled());
+            Assert.Throws<ArgumentException>(() => WhenWeightedMeanIsCalculated());
         }
 
-        private void WhenWeightedMeanIsCalled()
+        private void WhenWeightedMeanIsCalculated()
         {
             _weightedMean = _dataSet.WeightedMean(_relativeFrequencies);
         }
@@ -92,16 +111,9 @@ namespace Statistic.Basic.Tests
             _relativeFrequencies = ParseStringToListOfDouble(relativeFrequencies);
         }
 
-        private void ThenItShouldReturnTheExpectedValue(double actual, double expected)
-        {
-            Assert.AreEqual(expected, actual);
-        }
-
-        private void WhenMeanIsCalled()
+        private void WhenTheMeanIsCalculated()
         {
             _mean = Math.Round(_dataSet.Mean(),5);
         }
-
-
     }
 }
