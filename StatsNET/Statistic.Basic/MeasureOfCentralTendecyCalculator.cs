@@ -37,5 +37,25 @@ namespace Statistic.Basic
 
             return weighteMean;
         }
+
+        public static double Median(this IList<double> dataset)
+        {
+            double median = 0;
+            var orderedDataSet = dataset.OrderBy(d => d).ToList();
+            bool numOfObservationIsEven = dataset.Count % 2 == 0;
+
+            if (numOfObservationIsEven)
+            {
+                int midIndex = orderedDataSet.Count / 2;
+                median = 0.5 * (orderedDataSet[midIndex-1] + orderedDataSet[midIndex]);
+            }
+            else
+            {
+                int medianIndex = orderedDataSet.Count / 2;
+                median = orderedDataSet[medianIndex];
+            }
+
+            return median;
+        }
     }
 }
