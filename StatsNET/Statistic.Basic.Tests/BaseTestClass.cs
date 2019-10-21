@@ -6,8 +6,7 @@ namespace Statistic.Basic.Tests
     public class BaseTestClass
     {
         protected IList<double> _dataSet, _intervals;
-        protected Dictionary<double, double> _absoluteFrequencies, _relativeFrequencies;
-
+        
         protected void GivenASeriesOfValuesAsIntervals(string intervals)
         {
             _intervals = ParseStringToListOfDouble(intervals);

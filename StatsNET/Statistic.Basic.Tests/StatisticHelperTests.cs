@@ -10,6 +10,8 @@ namespace Statistic.Basic.Tests
     [TestFixture]
     public class StatisticHelperTests : BaseTestClass
     {
+        private Dictionary<double, double> _absoluteFrequencies, _relativeFrequencies;
+
         //28, 35, 42, 90, 70, 56, 75, 66, 30, 89, 75, 64, 81, 69, 55, 83, 72, 68, 73, 16
         [TestCase("1,3,5", "0.0,4.0,10.0", "2,1")]
         [TestCase("-1,0,1,3,5", "-2.0,4.0,10.0", "4,1")]
