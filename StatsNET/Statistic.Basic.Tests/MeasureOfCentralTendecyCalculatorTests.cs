@@ -16,8 +16,10 @@ namespace Statistic.Basic.Tests
         [TestCase("22,24,21,22,25,26,25,24,23,25,25,26,27,25,26",24.4)]
         public void ArithmeticMeanShouldReturnTheCorrectValue(string data, double expected)
         {
-            GivenASetOfData(data);
-            WhenTheMeanIsCalculated();
+            _dataSet = GivenASetOfData(data);
+            
+            _mean = WhenTheMeanIsCalculated();
+
             ThenItShouldReturnTheExpectedValue(_mean,expected);
         }
 
@@ -26,25 +28,30 @@ namespace Statistic.Basic.Tests
         [TestCase("22,24,21,22,25,26,25,24,23,25,25,26,27,25,26")]
         public void ArithmeticMeanProperties(string data)
         {
-            GivenASetOfData(data);
-            WhenTheMeanIsCalculated();
+            _dataSet = GivenASetOfData(data);
+
+            _mean = WhenTheMeanIsCalculated();
+
             ThenTheSumOfTheDeviationOfEachVariableShoulbBeZero();
         }
 
         [TestCase("22.5,27.5,32.5","0.37, 0.58, 0.05",25.9)]
         public void WeightedMeanShouldReturnTheCorrectValue(string data, string relativeFrequencies, double expected)
         {
-            GivenASetOfData(data);
-            GivenTheRespectiveRelativeFrequecies(relativeFrequencies);
-            WhenWeightedMeanIsCalculated();
+            _dataSet = GivenASetOfData(data);
+            _relativeFrequencies =GivenASetOfData(relativeFrequencies);
+
+            _weightedMean = WhenWeightedMeanIsCalculated();
+
             ThenItShouldReturnTheExpectedValue(_weightedMean, expected);
         }
 
         [TestCase("22.5,27.5,32.5", "0.37")]
         public void WeightedMeanShouldReturnAnExceptionWhenDataIsIncorrect(string data, string relativeFrequencies)
         {
-            GivenASetOfData(data);
-            GivenTheRespectiveRelativeFrequecies(relativeFrequencies);
+            _dataSet = GivenASetOfData(data);
+            _relativeFrequencies = GivenASetOfData(relativeFrequencies);
+
             ThenAnExceptionShouldBeThrown();
         }
 
@@ -56,8 +63,10 @@ namespace Statistic.Basic.Tests
         [TestCase("22,24,21,22,25,26,25,24,23,25,25,26,27,25,26",25)]
         public void TheMedianShouldReturnTheCorrectValue(string data, double exptected)
         {
-            GivenASetOfData(data);
-            WhenMedianIsCalculated();
+            _dataSet = GivenASetOfData(data);
+
+            _median = WhenMedianIsCalculated();
+
             ThenItShouldReturnTheExpectedValue(_median, exptected);
         }
 
@@ -69,20 +78,22 @@ namespace Statistic.Basic.Tests
         //[TestCase("22,24,21,22,25,26,25,24,23,25,25,26,27,25,26", 25)]
         public void TheQuantileShoulReturnTheCorrectValue(string data, string percentages, string expected)
         {
-            GivenASetOfData(data);
-            _percentages = GivenASetOfPercentages(percentages);
-            WhenQuantilesAreCalculated();
+            _dataSet = GivenASetOfData(data);
+            _percentages = GivenASetOfData(percentages);
+
+            _quantiles = WhenQuantilesAreCalculated();
+
             ThenItShouldReturnTheExpectedValues(_quantiles, _percentages);
         }
 
-        private void WhenQuantilesAreCalculated()
+        private IList<double> WhenQuantilesAreCalculated()
         {
-            _quantiles = _dataSet.Quantile();
+            return _dataSet.Quantile();
         }
 
-        private void WhenMedianIsCalculated()
+        private double WhenMedianIsCalculated()
         {
-            _median = Math.Round(_dataSet.Median(),5);
+            return Math.Round(_dataSet.Median(),5);
         }
 
         private void ThenTheSumOfTheDeviationOfEachVariableShoulbBeZero()
@@ -101,9 +112,9 @@ namespace Statistic.Basic.Tests
             Assert.Throws<ArgumentException>(() => WhenWeightedMeanIsCalculated());
         }
 
-        private void WhenWeightedMeanIsCalculated()
+        private double WhenWeightedMeanIsCalculated()
         {
-            _weightedMean = _dataSet.WeightedMean(_relativeFrequencies);
+            return _dataSet.WeightedMean(_relativeFrequencies);
         }
 
         private void GivenTheRespectiveRelativeFrequecies(string relativeFrequencies)
@@ -111,9 +122,9 @@ namespace Statistic.Basic.Tests
             _relativeFrequencies = ParseStringToListOfDouble(relativeFrequencies);
         }
 
-        private void WhenTheMeanIsCalculated()
+        private double WhenTheMeanIsCalculated()
         {
-            _mean = Math.Round(_dataSet.Mean(),5);
+            return Math.Round(_dataSet.Mean(),5);
         }
     }
 }

@@ -10,9 +10,9 @@ namespace Statistic.Basic.Tests
     [TestFixture]
     public class StatisticHelperTests : BaseTestClass
     {
+        IList<double> _intervals;
         private Dictionary<double, double> _absoluteFrequencies, _relativeFrequencies;
 
-        //28, 35, 42, 90, 70, 56, 75, 66, 30, 89, 75, 64, 81, 69, 55, 83, 72, 68, 73, 16
         [TestCase("1,3,5", "0.0,4.0,10.0", "2,1")]
         [TestCase("-1,0,1,3,5", "-2.0,4.0,10.0", "4,1")]
         [TestCase("-1,0,1,3,5", "0.0,5.5", "4")]
@@ -20,10 +20,13 @@ namespace Statistic.Basic.Tests
         [TestCase("1,3,5", "0.0,0.5", "0")]
         public void GetAbsoluteFrequencies(string data, string intervals, string expected)
         {
-            GivenASetOfData(data);
-            GivenASeriesOfValuesAsIntervals(intervals);
-            WhenGetAbsoluteFrequenciesIsCalled();
-            ThenItShouldReturnTheCorrectAbsFrequencyForEachInterval(expected);
+            _dataSet = GivenASetOfData(data);
+            _intervals = GivenASetOfData(intervals);
+            _expectedValues = GivenASetOfData(expected);
+
+            _absoluteFrequencies = WhenAbsoluteFrequenciesIsCalculated();
+
+            ThenItShouldReturnTheExpectedValues(_absoluteFrequencies.Values.ToList(), _expectedValues);
         }
 
         [TestCase("1,3,5", "0.0,4.0,10.0", "0.67,0.33", 2)]
@@ -32,34 +35,23 @@ namespace Statistic.Basic.Tests
         [TestCase("1,3,5", "0.0,0.5", "0", 5)]
         public void GetRelativeFrequencies(string data, string intervals, string expected, int roundTo)
         {
-            GivenASetOfData(data);
-            GivenASeriesOfValuesAsIntervals(intervals);
-            WhenGetRelativeFrequenciesIsCalled(roundTo);
-            ThenItShouldReturnTheCorrectRelativeFrequencyForEachInterval(expected);
+            _dataSet = GivenASetOfData(data);
+            _intervals = GivenASetOfData(intervals);
+            _expectedValues = GivenASetOfData(expected);
+
+            _relativeFrequencies = WhenGetRelativeFrequenciesIsCalculated(roundTo);
+
+            ThenItShouldReturnTheExpectedValues(_relativeFrequencies.Values.ToList(), _expectedValues);
         }
 
-        private void ThenItShouldReturnTheCorrectRelativeFrequencyForEachInterval(string expectedAsString)
+        private Dictionary<double, double> WhenGetRelativeFrequenciesIsCalculated(int roundTo)
         {
-            List<double> expected = ParseStringToListOfDouble(expectedAsString);
-            List<double> results = _relativeFrequencies.Values.ToList();
-            Assert.AreEqual(expected, results);
+            return _dataSet.GetRelativeFrequenciesForIntervals(_intervals, roundTo);
         }
 
-        private void WhenGetRelativeFrequenciesIsCalled(int roundTo)
+        private Dictionary<double,double> WhenAbsoluteFrequenciesIsCalculated()
         {
-            _relativeFrequencies = _dataSet.GetRelativeFrequenciesForIntervals(_intervals, roundTo);
-        }
-
-        private void WhenGetAbsoluteFrequenciesIsCalled()
-        {
-            _absoluteFrequencies = _dataSet.GetAbsoluteFrequenciesForIntervals(_intervals);
-        }
-
-        private void ThenItShouldReturnTheCorrectAbsFrequencyForEachInterval(string expectedAsString)
-        {
-            List<double> expected = ParseStringToListOfDouble(expectedAsString);
-            List<double> results = _absoluteFrequencies.Values.ToList();
-            Assert.AreEqual(expected, results);
+             return _dataSet.GetAbsoluteFrequenciesForIntervals(_intervals);
         }
 
     }

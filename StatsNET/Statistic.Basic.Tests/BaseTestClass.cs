@@ -6,21 +6,11 @@ namespace Statistic.Basic.Tests
 {
     public class BaseTestClass
     {
-        protected IList<double> _dataSet, _intervals;
+        protected IList<double> _dataSet, _expectedValues;
         
-        protected void GivenASeriesOfValuesAsIntervals(string intervals)
+        protected IList<double> GivenASetOfData(string data)
         {
-            _intervals = ParseStringToListOfDouble(intervals);
-        }
-
-        protected IList<double> GivenASetOfPercentages(string valuesAsString)
-        {
-             return ParseStringToListOfDouble(valuesAsString);
-        }
-
-        protected void GivenASetOfData(string data)
-        {
-            _dataSet = ParseStringToListOfDouble(data);
+            return ParseStringToListOfDouble(data);
         }
 
         protected List<double> ParseStringToListOfDouble(string dataAsString)
