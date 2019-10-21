@@ -8,7 +8,8 @@ namespace Statistic.Basic.Tests
     [TestFixture]
     class MeasureOfCentralTendecyCalculatorTests : BaseTestClass
     {
-        private double _mean;
+        private double _mean, _weightedMean;
+        private IList<double> _relativeFrequencies;
 
         [TestCase("22,24,21,30,28,29", 25.66667)]
         [TestCase("1,1,1,1",1)]
@@ -17,12 +18,32 @@ namespace Statistic.Basic.Tests
         {
             GivenASetOfData(data);
             WhenMeanIsCalled();
-            ThenItShouldReturnTheCorrectArithmeticMean(expected);
+            ThenItShouldReturnTheExpectedValue(_mean,expected);
         }
 
-        private void ThenItShouldReturnTheCorrectArithmeticMean(double expected)
+        [TestCase("22.5,27.5,32.5","0.37, 0.58, 0.05",25.9)]
+        public void WeightedMeanShouldReturnTheCorrectValue(string data, string relativeFrequencies, double expected)
         {
-            Assert.AreEqual(expected, _mean);
+            GivenASetOfData(data);
+            GivenTheRespectiveRelativeFrequecies(relativeFrequencies);
+            WhenWeightedMeanIsCalled();
+            ThenItShouldReturnTheExpectedValue(_weightedMean, expected);
+
+        }
+
+        private void WhenWeightedMeanIsCalled()
+        {
+            _weightedMean = _dataSet.WeightedMean(_relativeFrequencies);
+        }
+
+        private void GivenTheRespectiveRelativeFrequecies(string relativeFrequencies)
+        {
+            _relativeFrequencies = ParseStringToListOfDouble(relativeFrequencies);
+        }
+
+        private void ThenItShouldReturnTheExpectedValue(double actual, double expected)
+        {
+            Assert.AreEqual(expected, actual);
         }
 
         private void WhenMeanIsCalled()
