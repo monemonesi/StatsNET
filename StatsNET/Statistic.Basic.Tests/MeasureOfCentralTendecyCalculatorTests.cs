@@ -20,7 +20,7 @@ namespace Statistic.Basic.Tests
             
             _mean = WhenTheMeanIsCalculated();
 
-            ThenItShouldReturnTheExpectedValue(_mean,expected);
+            Assert.AreEqual(_mean,expected);
         }
 
         [TestCase("22,24,21,30,28,29")]
@@ -43,7 +43,7 @@ namespace Statistic.Basic.Tests
 
             _weightedMean = WhenWeightedMeanIsCalculated();
 
-            ThenItShouldReturnTheExpectedValue(_weightedMean, expected);
+            Assert.AreEqual(_weightedMean, expected);
         }
 
         [TestCase("22.5,27.5,32.5", "0.37")]
@@ -67,7 +67,7 @@ namespace Statistic.Basic.Tests
 
             _median = WhenMedianIsCalculated();
 
-            ThenItShouldReturnTheExpectedValue(_median, exptected);
+            Assert.AreEqual(_median, exptected);
         }
 
         [TestCase("22.46,24.1,21.78,30.954", "0,0.25,0.50,0.75,1" , "21.7800,22.2900,23.2800,25.8135,30.9540")]
@@ -83,7 +83,7 @@ namespace Statistic.Basic.Tests
 
             _quantiles = WhenQuantilesAreCalculated();
 
-            ThenItShouldReturnTheExpectedValues(_quantiles, _percentages);
+            Assert.AreEqual(_quantiles, _percentages);
         }
 
         private IList<double> WhenQuantilesAreCalculated()
@@ -115,11 +115,6 @@ namespace Statistic.Basic.Tests
         private double WhenWeightedMeanIsCalculated()
         {
             return _dataSet.WeightedMean(_relativeFrequencies);
-        }
-
-        private void GivenTheRespectiveRelativeFrequecies(string relativeFrequencies)
-        {
-            _relativeFrequencies = ParseStringToListOfDouble(relativeFrequencies);
         }
 
         private double WhenTheMeanIsCalculated()

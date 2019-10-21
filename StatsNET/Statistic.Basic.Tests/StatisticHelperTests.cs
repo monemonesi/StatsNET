@@ -26,7 +26,7 @@ namespace Statistic.Basic.Tests
 
             _absoluteFrequencies = WhenAbsoluteFrequenciesIsCalculated();
 
-            ThenItShouldReturnTheExpectedValues(_absoluteFrequencies.Values.ToList(), _expectedValues);
+            Assert.AreEqual(_absoluteFrequencies.Values.ToList(), _expectedValues);
         }
 
         [TestCase("1,3,5", "0.0,4.0,10.0", "0.67,0.33", 2)]
@@ -41,7 +41,7 @@ namespace Statistic.Basic.Tests
 
             _relativeFrequencies = WhenGetRelativeFrequenciesIsCalculated(roundTo);
 
-            ThenItShouldReturnTheExpectedValues(_relativeFrequencies.Values.ToList(), _expectedValues);
+            Assert.AreEqual(_relativeFrequencies.Values.ToList(), _expectedValues);
         }
 
         private Dictionary<double, double> WhenGetRelativeFrequenciesIsCalculated(int roundTo)
