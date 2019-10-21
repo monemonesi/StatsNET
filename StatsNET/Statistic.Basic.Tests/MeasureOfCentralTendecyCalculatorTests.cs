@@ -31,6 +31,20 @@ namespace Statistic.Basic.Tests
 
         }
 
+        [TestCase("22.5,27.5,32.5", "0.37")]
+        public void WeightedMeanShouldReturnAnExceptionWhenDataIsIncorrect(string data, string relativeFrequencies)
+        {
+            GivenASetOfData(data);
+            GivenTheRespectiveRelativeFrequecies(relativeFrequencies);
+            //WhenWeightedMeanIsCalled();
+            ThenAnExceptionShouldBeThrown();
+        }
+
+        private void ThenAnExceptionShouldBeThrown()
+        {
+            Assert.Throws<ArgumentException>(() => WhenWeightedMeanIsCalled());
+        }
+
         private void WhenWeightedMeanIsCalled()
         {
             _weightedMean = _dataSet.WeightedMean(_relativeFrequencies);
