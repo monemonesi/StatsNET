@@ -42,12 +42,11 @@ namespace Statistic.Basic
         {
             double median = 0;
             var orderedDataSet = dataset.OrderBy(d => d).ToList();
-            bool numOfObservationIsEven = dataset.Count % 2 == 0;
 
-            if (numOfObservationIsEven)
+            if (IsNumOfObservationEven(dataset))
             {
                 int midIndex = orderedDataSet.Count / 2;
-                median = 0.5 * (orderedDataSet[midIndex-1] + orderedDataSet[midIndex]);
+                median = 0.5 * (orderedDataSet[midIndex - 1] + orderedDataSet[midIndex]);
             }
             else
             {
@@ -61,8 +60,33 @@ namespace Statistic.Basic
         public static IList<double> Quantile(this IList<double> dataset)
         {
             IList<double> quantiles = new List<double>();
+            var orderedDataSet = dataset.OrderBy(d => d).ToList();
 
+            IList<double> quantileIndexes = new List<double>();
+
+            List<double> percentages = new List<double> { 0.0, 0.25, 0.5, 0.75, 1 };
+
+            for (int i = 0; i < percentages.Count - 1; i++)
+            {
+                var nAlpha = (orderedDataSet.Count * percentages[i]);
+
+                int quantileIndex = 0;
+
+                var quantile = 0.0;
+
+                quantileIndex = (int)(nAlpha);
+                quantile = orderedDataSet[quantileIndex];
+
+                quantiles.Add(quantile);
+            }
+
+            quantiles.Add(orderedDataSet[orderedDataSet.Count - 1]);
             return quantiles;
+        }
+
+        private static bool IsNumOfObservationEven(IList<double> dataset)
+        {
+            return dataset.Count % 2 == 0;
         }
     }
 }

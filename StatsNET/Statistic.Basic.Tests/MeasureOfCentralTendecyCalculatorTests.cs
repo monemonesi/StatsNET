@@ -61,29 +61,38 @@ namespace Statistic.Basic.Tests
         [TestCase("22,21.18,15.98,24,21,30,28,29,29,29,29", 28)]
         [TestCase("-22,-24.67,-21.9,30.21,28,29",3.05)]
         [TestCase("22,24,21,22,25,26,25,24,23,25,25,26,27,25,26",25)]
-        public void TheMedianShouldReturnTheCorrectValue(string data, double exptected)
+        public void TheMedianShouldReturnTheCorrectValue(string data, double expected)
         {
             _dataSet = GivenASetOfData(data);
 
             _median = WhenMedianIsCalculated();
 
-            Assert.AreEqual(_median, exptected);
+            Assert.AreEqual(_median, expected);
         }
 
-        [TestCase("22.46,24.1,21.78,30.954", "0,0.25,0.50,0.75,1" , "21.7800,22.2900,23.2800,25.8135,30.9540")]
-        //[TestCase("22,24,21,30,28", 24)]
-        //[TestCase("22,24,21,30,28,29", 26)]
-        //[TestCase("22,21.18,15.98,24,21,30,28,29,29,29,29", 28)]
-        //[TestCase("-22,-24.67,-21.9,30.21,28,29", 3.05)]
-        //[TestCase("22,24,21,22,25,26,25,24,23,25,25,26,27,25,26", 25)]
-        public void TheQuantileShoulReturnTheCorrectValue(string data, string percentages, string expected)
+        [TestCase("22.46,24.1,21.78,30.954,35.00", "21.78,22.46,24.1,30.954,35.00")]
+        [TestCase("22,24,21,30,35", "21,22,24,30,35")]
+        [TestCase("22.5,24.3,21.6,30.6,35.7", "21.6,22.5,24.3,30.6,35.7")]
+        public void TheQuantileShoulReturnTheCorrectQuartileValueIfNoOptionIsSpecified(string data, string expected)
         {
             _dataSet = GivenASetOfData(data);
-            _percentages = GivenASetOfData(percentages);
+            _expectedValues = GivenASetOfData(expected);
 
             _quantiles = WhenQuantilesAreCalculated();
 
-            Assert.AreEqual(_quantiles, _percentages);
+            Assert.AreEqual(_expectedValues, _quantiles);
+        }
+
+        [TestCase("21,22,22,23,24,24,25,25,25,25,25,25,26,26,26,26,27,27,27,28,28,28,29,29,29,29,29,30,30,30,31", "21,25,26,29,31")]
+        [TestCase("26,22,22,23,24,24,25,25,25,25,29,25,21,27,26,26,27,27,26,28,31,28,25,29,29,29,29,30,30,30,28", "21,25,26,29,31")]
+        public void TheQuantileShouldReturnQuartileValuesIfNoOptionIsSoecifiedAndWithDuplicateNumber(string data, string expected)
+        {
+            _dataSet = GivenASetOfData(data);
+            _expectedValues = GivenASetOfData(expected);
+
+            _quantiles = WhenQuantilesAreCalculated();
+
+            Assert.AreEqual(_expectedValues, _quantiles);
         }
 
         private IList<double> WhenQuantilesAreCalculated()
