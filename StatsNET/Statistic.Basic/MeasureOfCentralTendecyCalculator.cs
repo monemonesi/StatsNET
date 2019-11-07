@@ -38,6 +38,11 @@ namespace Statistic.Basic
             return weighteMean;
         }
 
+        /// <summary>
+        /// Given a dataset it calculates the median
+        /// </summary>
+        /// <param name="dataset"></param>
+        /// <returns></returns>
         public static double Median(this IList<double> dataset)
         {
             double median = 0;
@@ -57,6 +62,11 @@ namespace Statistic.Basic
             return median;
         }
 
+        /// <summary>
+        /// Given a dataset it calculate the quantile
+        /// </summary>
+        /// <param name="dataset"></param>
+        /// <returns></returns>
         public static IList<double> Quantile(this IList<double> dataset)
         {
             IList<double> quantiles = new List<double>();
