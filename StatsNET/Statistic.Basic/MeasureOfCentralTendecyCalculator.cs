@@ -87,17 +87,12 @@ namespace Statistic.Basic
             {
                 var nAlpha = (orderedDataSet.Count * percentages[i]);
 
-                int quantileIndex = 0;
-
-                var quantile = 0.0;
-
-                quantileIndex = Math.Clamp((int)(nAlpha), 0, orderedDataSet.Count-1);
-                quantile = orderedDataSet[quantileIndex];
+                int quantileIndex = Math.Clamp((int)(nAlpha), 0, orderedDataSet.Count-1);
+                var quantile = orderedDataSet[quantileIndex];
 
                 quantiles.Add(quantile);
             }
 
-            //quantiles.Add(orderedDataSet[orderedDataSet.Count - 1]);
             return quantiles;
         }
 
