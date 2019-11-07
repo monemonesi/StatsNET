@@ -38,6 +38,11 @@ namespace Statistic.Basic
             return weighteMean;
         }
 
+        /// <summary>
+        /// Given a dataset it calculates the median
+        /// </summary>
+        /// <param name="dataset"></param>
+        /// <returns></returns>
         public static double Median(this IList<double> dataset)
         {
             double median = 0;
@@ -57,31 +62,59 @@ namespace Statistic.Basic
             return median;
         }
 
+        /// <summary>
+        /// Given a dataset it calculate the quartile
+        /// </summary>
+        /// <param name="dataset"></param>
+        /// <returns></returns>
         public static IList<double> Quantile(this IList<double> dataset)
         {
-            IList<double> quantiles = new List<double>();
-            var orderedDataSet = dataset.OrderBy(d => d).ToList();
-
-            IList<double> quantileIndexes = new List<double>();
 
             List<double> percentages = new List<double> { 0.0, 0.25, 0.5, 0.75, 1 };
 
-            for (int i = 0; i < percentages.Count - 1; i++)
+            return dataset.Quantile(percentages);
+
+        }
+
+        /// <summary>
+        /// Given a dataset and specific percentages it calculate the quantile
+        /// </summary>
+        /// <param name="dataset"></param>
+        /// <param name="percentages">Between 0 and 1</param>
+        /// <returns></returns>
+        public static IList<double> Quantile(this IList<double> dataset, IList<double> percentages)
+        {
+            CheckInputRange(percentages);
+
+            IList<double> quantiles = new List<double>();
+            IList<double> quantileIndexes = new List<double>();
+
+            var orderedDataSet = dataset.OrderBy(d => d).ToList();
+
+            foreach (var percentage in percentages)
             {
-                var nAlpha = (orderedDataSet.Count * percentages[i]);
-
-                int quantileIndex = 0;
-
-                var quantile = 0.0;
-
-                quantileIndex = (int)(nAlpha);
-                quantile = orderedDataSet[quantileIndex];
-
-                quantiles.Add(quantile);
+                CalculateQuantileForSpecificPercentage(quantiles, orderedDataSet, percentage);
             }
 
-            quantiles.Add(orderedDataSet[orderedDataSet.Count - 1]);
             return quantiles;
+        }
+
+        private static void CheckInputRange(IList<double> percentages)
+        {
+            foreach (var num in percentages)
+            {
+                if (num < 0 || num > 1) throw new ArgumentOutOfRangeException($"Percentages must be number between 0 and 1");
+            }
+        }
+
+        private static void CalculateQuantileForSpecificPercentage(IList<double> quantiles, IList<double> orderedDataSet, double percentage)
+        {
+            var nAlpha = (orderedDataSet.Count * percentage);
+
+            int quantileIndex = Math.Clamp((int)(nAlpha), 0, orderedDataSet.Count - 1);
+            var quantile = orderedDataSet[quantileIndex];
+
+            quantiles.Add(quantile);
         }
 
         private static bool IsNumOfObservationEven(IList<double> dataset)

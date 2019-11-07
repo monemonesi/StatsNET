@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -95,6 +96,52 @@ namespace Statistic.Basic.Tests
             Assert.AreEqual(_expectedValues, _quantiles);
         }
 
+        [TestCase("22,24,21,30,35", "0.25,0.75" ,"22,30")]
+        [TestCase("22.5,24.3,21.6,30.6,35.7", "0", "21.6")]
+        [TestCase("22.5,24.3,21.6,30.6,35.7", "1", "35.7")]
+        [TestCase("22,22,22,22", "0", "22")]
+        [TestCase("22", "0", "22")]
+        [TestCase("22", "1", "22")]
+        public void QuantileShouldAllowCustomOption(string data, string percentile, string expected)
+        {
+            _dataSet = GivenASetOfData(data);
+            _percentages = GivenASetOfData(percentile);
+            _expectedValues = GivenASetOfData(expected);
+
+            _quantiles = WhenQuantileAreCalculatedWithSpecificPercentages();
+
+            _quantiles.Should().Equal(_expectedValues);
+        }
+
+        [TestCase("22,-24,-21,30,35", "0.25,0.75", "-21,30")]
+        [TestCase("22.5,24.3,21.6,30.6,-35.7", "0", "-35.7")]
+        [TestCase("22.5,-24.3,-21.6,30.6,35.7", "1", "35.7")]
+        [TestCase("-22,-22,-22,-22", "0", "-22")]
+        public void QuatileShouldReturnTheCorrectValueWhenNegativeValueInDataset(string data, string percentile, string expected)
+        {
+            _dataSet = GivenASetOfData(data);
+            _percentages = GivenASetOfData(percentile);
+            _expectedValues = GivenASetOfData(expected);
+
+            _quantiles = WhenQuantileAreCalculatedWithSpecificPercentages();
+
+            _quantiles.Should().Equal(_expectedValues);
+        }
+
+        [TestCase("22,-24,-21,30,35", "-0.25,0.75")]
+        public void QuantileShouldThrownAnExceptionWhenPercantagesAreOutOfRange0To1(string data, string percentile)
+        {
+            _dataSet = GivenASetOfData(data);
+            _percentages = GivenASetOfData(percentile);
+
+            ThenAnExceptionShouldBeThrownFromQuantileFunction();
+        }
+
+        private IList<double> WhenQuantileAreCalculatedWithSpecificPercentages()
+        {
+            return _dataSet.Quantile(_percentages);
+        }
+
         private IList<double> WhenQuantilesAreCalculated()
         {
             return _dataSet.Quantile();
@@ -119,6 +166,11 @@ namespace Statistic.Basic.Tests
         private void ThenAnExceptionShouldBeThrown()
         {
             Assert.Throws<ArgumentException>(() => WhenWeightedMeanIsCalculated());
+        }
+
+        private void ThenAnExceptionShouldBeThrownFromQuantileFunction()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => WhenQuantileAreCalculatedWithSpecificPercentages());
         }
 
         private double WhenWeightedMeanIsCalculated()
