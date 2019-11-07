@@ -63,7 +63,7 @@ namespace Statistic.Basic
         }
 
         /// <summary>
-        /// Given a dataset it calculate the quantile
+        /// Given a dataset it calculate the quartile
         /// </summary>
         /// <param name="dataset"></param>
         /// <returns></returns>
@@ -76,8 +76,19 @@ namespace Statistic.Basic
 
         }
 
+        /// <summary>
+        /// Given a dataset and specific percentages it calculate the quantile
+        /// </summary>
+        /// <param name="dataset"></param>
+        /// <param name="percentages">Between 0 and 1</param>
+        /// <returns></returns>
         public static IList<double> Quantile(this IList<double> dataset, IList<double> percentages)
         {
+            foreach (var num in percentages)
+            {
+                if (num < 0 || num > 1) throw new ArgumentOutOfRangeException("Percentages must be number between 0 and 1");
+            }
+
             IList<double> quantiles = new List<double>();
             IList<double> quantileIndexes = new List<double>();
 

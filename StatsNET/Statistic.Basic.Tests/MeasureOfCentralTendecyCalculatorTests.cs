@@ -128,6 +128,15 @@ namespace Statistic.Basic.Tests
             _quantiles.Should().Equal(_expectedValues);
         }
 
+        [TestCase("22,-24,-21,30,35", "-0.25,0.75")]
+        public void QuantileShouldThrownAnExceptionWhenPercantagesAreOutOfRange0To1(string data, string percentile)
+        {
+            _dataSet = GivenASetOfData(data);
+            _percentages = GivenASetOfData(percentile);
+
+            ThenAnExceptionShouldBeThrownFromQuantileFunction();
+        }
+
         private IList<double> WhenQuantileAreCalculatedWithSpecificPercentages()
         {
             return _dataSet.Quantile(_percentages);
@@ -157,6 +166,11 @@ namespace Statistic.Basic.Tests
         private void ThenAnExceptionShouldBeThrown()
         {
             Assert.Throws<ArgumentException>(() => WhenWeightedMeanIsCalculated());
+        }
+
+        private void ThenAnExceptionShouldBeThrownFromQuantileFunction()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => WhenQuantileAreCalculatedWithSpecificPercentages());
         }
 
         private double WhenWeightedMeanIsCalculated()
