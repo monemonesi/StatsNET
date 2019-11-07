@@ -69,14 +69,21 @@ namespace Statistic.Basic
         /// <returns></returns>
         public static IList<double> Quantile(this IList<double> dataset)
         {
-            IList<double> quantiles = new List<double>();
-            var orderedDataSet = dataset.OrderBy(d => d).ToList();
-
-            IList<double> quantileIndexes = new List<double>();
 
             List<double> percentages = new List<double> { 0.0, 0.25, 0.5, 0.75, 1 };
 
-            for (int i = 0; i < percentages.Count - 1; i++)
+            return dataset.Quantile(percentages);
+
+        }
+
+        public static IList<double> Quantile(this IList<double> dataset, IList<double> percentages)
+        {
+            IList<double> quantiles = new List<double>();
+            IList<double> quantileIndexes = new List<double>();
+
+            var orderedDataSet = dataset.OrderBy(d => d).ToList();
+
+            for (int i = 0; i < percentages.Count; i++)
             {
                 var nAlpha = (orderedDataSet.Count * percentages[i]);
 
@@ -84,13 +91,13 @@ namespace Statistic.Basic
 
                 var quantile = 0.0;
 
-                quantileIndex = (int)(nAlpha);
+                quantileIndex = Math.Clamp((int)(nAlpha), 0, orderedDataSet.Count-1);
                 quantile = orderedDataSet[quantileIndex];
 
                 quantiles.Add(quantile);
             }
 
-            quantiles.Add(orderedDataSet[orderedDataSet.Count - 1]);
+            //quantiles.Add(orderedDataSet[orderedDataSet.Count - 1]);
             return quantiles;
         }
 

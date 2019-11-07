@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -93,6 +94,23 @@ namespace Statistic.Basic.Tests
             _quantiles = WhenQuantilesAreCalculated();
 
             Assert.AreEqual(_expectedValues, _quantiles);
+        }
+
+        [TestCase("22,24,21,30,35", "0.25,0.75" ,"22,30")]
+        public void QuantileShouldAllowCustomOption(string data, string percentile, string expected)
+        {
+            _dataSet = GivenASetOfData(data);
+            _percentages = GivenASetOfData(percentile);
+            _expectedValues = GivenASetOfData(expected);
+
+            _quantiles = WhenQuantileAreCalculatedWithSpecificPercentages();
+
+            _quantiles.Should().Equal(_expectedValues);
+        }
+
+        private IList<double> WhenQuantileAreCalculatedWithSpecificPercentages()
+        {
+            return _dataSet.Quantile(_percentages);
         }
 
         private IList<double> WhenQuantilesAreCalculated()
