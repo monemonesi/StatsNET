@@ -84,27 +84,37 @@ namespace Statistic.Basic
         /// <returns></returns>
         public static IList<double> Quantile(this IList<double> dataset, IList<double> percentages)
         {
-            foreach (var num in percentages)
-            {
-                if (num < 0 || num > 1) throw new ArgumentOutOfRangeException("Percentages must be number between 0 and 1");
-            }
+            CheckInputRange(percentages);
 
             IList<double> quantiles = new List<double>();
             IList<double> quantileIndexes = new List<double>();
 
             var orderedDataSet = dataset.OrderBy(d => d).ToList();
 
-            for (int i = 0; i < percentages.Count; i++)
+            foreach (var percentage in percentages)
             {
-                var nAlpha = (orderedDataSet.Count * percentages[i]);
-
-                int quantileIndex = Math.Clamp((int)(nAlpha), 0, orderedDataSet.Count-1);
-                var quantile = orderedDataSet[quantileIndex];
-
-                quantiles.Add(quantile);
+                CalculateQuantileForSpecificPercentage(quantiles, orderedDataSet, percentage);
             }
 
             return quantiles;
+        }
+
+        private static void CheckInputRange(IList<double> percentages)
+        {
+            foreach (var num in percentages)
+            {
+                if (num < 0 || num > 1) throw new ArgumentOutOfRangeException($"Percentages must be number between 0 and 1");
+            }
+        }
+
+        private static void CalculateQuantileForSpecificPercentage(IList<double> quantiles, IList<double> orderedDataSet, double percentage)
+        {
+            var nAlpha = (orderedDataSet.Count * percentage);
+
+            int quantileIndex = Math.Clamp((int)(nAlpha), 0, orderedDataSet.Count - 1);
+            var quantile = orderedDataSet[quantileIndex];
+
+            quantiles.Add(quantile);
         }
 
         private static bool IsNumOfObservationEven(IList<double> dataset)
