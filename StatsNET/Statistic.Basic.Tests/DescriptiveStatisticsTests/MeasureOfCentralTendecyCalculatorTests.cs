@@ -1,8 +1,9 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Statistic.Basic.DescriptiveStatistics;
 
-namespace Statistic.Basic.Tests
+namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
 {
     [TestFixture]
     class MeasureOfCentralTendecyCalculatorTests : BaseTestClassHelper
