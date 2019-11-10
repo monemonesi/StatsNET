@@ -99,6 +99,27 @@ namespace Statistic.Basic
             return quantiles;
         }
 
+        public static double Mode(this IList<double> dataset)
+        {
+            Dictionary<double, int> frequencies = new Dictionary<double, int>();
+
+            foreach (var data in dataset)
+            {
+                if (!frequencies.ContainsKey(data))
+                {
+                    frequencies.Add(data, 1);
+                }
+                else
+                {
+                    frequencies[data]++;
+                }
+            }
+
+            var mode = frequencies.OrderByDescending(freq => freq.Value).FirstOrDefault().Key;
+
+            return mode;
+        }
+
         private static void CheckInputRange(IList<double> percentages)
         {
             foreach (var num in percentages)

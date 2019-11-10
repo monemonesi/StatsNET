@@ -7,7 +7,7 @@ namespace Statistic.Basic.Tests
     [TestFixture]
     class MeasureOfCentralTendecyCalculatorTests : BaseTestClassHelper
     {
-        private double _mean, _weightedMean, _median;
+        private double _mean, _weightedMean, _median, _mode;
         private IList<double> _relativeFrequencies, _quantiles, _percentages;
 
         [TestCase("22,24,21,30,28,29", 25.66667)]
@@ -136,6 +136,19 @@ namespace Statistic.Basic.Tests
 
             ThenAnExceptionShouldBeThrownFromQuantileFunction();
         }
+
+        [TestCase("0,-1,2,2", 2)]
+        [TestCase("-1,-0,0.05,-1,0,-1.0",-1)]
+        [TestCase("-1,-0,0.05,-1,0,0.0", 0)]
+        public void ModeShouldReturnTheValueWithMaxFrequency(string data, double expected)
+        {
+            _dataSet = GivenASetOfData(data);
+
+            _mode = _dataSet.Mode();
+
+            ThenItShouldReturnTheExpectedValue(_mode, expected);
+        }
+
 
         private IList<double> WhenQuantileAreCalculatedWithSpecificPercentages()
         {
