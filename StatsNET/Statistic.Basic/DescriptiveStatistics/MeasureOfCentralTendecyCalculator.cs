@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Statistic.Basic
+namespace Statistic.Basic.DescriptiveStatistics
 {
     public static class MeasureOfCentralTendecyCalculator
     {
