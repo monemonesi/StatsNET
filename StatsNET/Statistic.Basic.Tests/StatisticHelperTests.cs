@@ -8,7 +8,7 @@ using System.Linq;
 namespace Statistic.Basic.Tests
 {
     [TestFixture]
-    public class StatisticHelperTests : BaseTestClass
+    public class StatisticHelperTests : BaseTestClassHelper
     {
         IList<double> _intervals;
         private Dictionary<double, double> _absoluteFrequencies, _relativeFrequencies;
