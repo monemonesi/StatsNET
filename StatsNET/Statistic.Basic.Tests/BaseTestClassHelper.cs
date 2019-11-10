@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Statistic.Basic.Tests
 {
-    public class BaseTestClass
+    public class BaseTestClassHelper
     {
         protected IList<double> _dataSet, _expectedValues;
         

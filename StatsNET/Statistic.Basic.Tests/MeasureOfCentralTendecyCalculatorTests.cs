@@ -1,13 +1,11 @@
-﻿using FluentAssertions;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Statistic.Basic.Tests
 {
     [TestFixture]
-    class MeasureOfCentralTendecyCalculatorTests : BaseTestClass
+    class MeasureOfCentralTendecyCalculatorTests : BaseTestClassHelper
     {
         private double _mean, _weightedMean, _median;
         private IList<double> _relativeFrequencies, _quantiles, _percentages;
@@ -21,7 +19,8 @@ namespace Statistic.Basic.Tests
             
             _mean = WhenTheMeanIsCalculated();
 
-            Assert.AreEqual(_mean,expected);
+            ThenItShouldReturnTheExpectedValue(_mean, expected);
+
         }
 
         [TestCase("22,24,21,30,28,29")]
@@ -68,7 +67,7 @@ namespace Statistic.Basic.Tests
 
             _median = WhenMedianIsCalculated();
 
-            Assert.AreEqual(_median, expected);
+            ThenItShouldReturnTheExpectedValue(_median, expected);
         }
 
         [TestCase("22.46,24.1,21.78,30.954,35.00", "21.78,22.46,24.1,30.954,35.00")]
@@ -81,7 +80,8 @@ namespace Statistic.Basic.Tests
 
             _quantiles = WhenQuantilesAreCalculated();
 
-            Assert.AreEqual(_expectedValues, _quantiles);
+            ThenItShouldReturnTheExpectedValues(_quantiles, _expectedValues);
+
         }
 
         [TestCase("21,22,22,23,24,24,25,25,25,25,25,25,26,26,26,26,27,27,27,28,28,28,29,29,29,29,29,30,30,30,31", "21,25,26,29,31")]
@@ -93,7 +93,7 @@ namespace Statistic.Basic.Tests
 
             _quantiles = WhenQuantilesAreCalculated();
 
-            Assert.AreEqual(_expectedValues, _quantiles);
+            ThenItShouldReturnTheExpectedValues(_quantiles, _expectedValues);
         }
 
         [TestCase("22,24,21,30,35", "0.25,0.75" ,"22,30")]
@@ -110,7 +110,7 @@ namespace Statistic.Basic.Tests
 
             _quantiles = WhenQuantileAreCalculatedWithSpecificPercentages();
 
-            _quantiles.Should().Equal(_expectedValues);
+            ThenItShouldReturnTheExpectedValues(_quantiles, _expectedValues);
         }
 
         [TestCase("22,-24,-21,30,35", "0.25,0.75", "-21,30")]
@@ -125,7 +125,7 @@ namespace Statistic.Basic.Tests
 
             _quantiles = WhenQuantileAreCalculatedWithSpecificPercentages();
 
-            _quantiles.Should().Equal(_expectedValues);
+            ThenItShouldReturnTheExpectedValues(_quantiles, _expectedValues);
         }
 
         [TestCase("22,-24,-21,30,35", "-0.25,0.75")]
