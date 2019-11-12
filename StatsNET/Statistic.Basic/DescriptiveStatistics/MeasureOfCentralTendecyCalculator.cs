@@ -99,6 +99,11 @@ namespace Statistic.Basic.DescriptiveStatistics
             return quantiles;
         }
 
+        /// <summary>
+        /// Given a dataset it calculate the mode as the value that appears with higher frequency
+        /// </summary>
+        /// <param name="dataset"></param>
+        /// <returns></returns>
         public static double Mode(this IList<double> dataset)
         {
             Dictionary<double, int> frequencies = new Dictionary<double, int>();
