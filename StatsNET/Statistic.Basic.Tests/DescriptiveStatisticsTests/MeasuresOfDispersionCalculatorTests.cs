@@ -47,6 +47,23 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
             ThenItShouldReturnTheExpectedValue(_result, expected);
         }
 
+        [TestCase("22.5,24.3,21.6,30.6,35.7", 6.027)]
+        [TestCase("22,22,22,22,22,22", 0)]
+        [TestCase("-10,4,0,-15,4,5.5", 8.546)]
+        public void StandardVariationShouldReturnTheCorrectValue(string data, double expected)
+        {
+            _dataSet = GivenASetOfData(data);
+
+            _result = WhenTheStandardDeviationIsCalculated();
+
+            ThenItShouldReturnTheExpectedValue(_result, expected);
+        }
+
+        private double WhenTheStandardDeviationIsCalculated()
+        {
+            return _dataSet.StandardDeviation();
+        }
+
         private double WhenTheVarianceIsCalculated()
         {
             return _dataSet.Variance();

@@ -33,7 +33,7 @@ namespace Statistic.Basic.DescriptiveStatistics
 
         /// <summary>
         /// Given a dataset it calculates the variance.
-        /// NOTE: As in R 1/(n-1) is used to calculate the variance
+        /// NOTE: As in R 1/(n-1) is used to calculate this value
         /// </summary>
         /// <param name="dataset"></param>
         /// <returns></returns>
@@ -51,6 +51,17 @@ namespace Statistic.Basic.DescriptiveStatistics
             double variance = sum / (dataset.Count - 1);
 
             return variance;
+        }
+
+        /// <summary>
+        /// Given a dataset it calculate the stadard deviation.
+        /// NOTE: As in R 1/(n-1) is used to calculate this value
+        /// </summary>
+        /// <param name="dataset"></param>
+        /// <returns></returns>
+        public static double StandardDeviation(this IList<double> dataset)
+        {
+            return Math.Sqrt(dataset.Variance());
         }
     }
 }
