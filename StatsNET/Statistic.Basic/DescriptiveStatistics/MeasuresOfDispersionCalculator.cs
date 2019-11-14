@@ -30,5 +30,27 @@ namespace Statistic.Basic.DescriptiveStatistics
             var quartiles = dataset.Quantile();
             return quartiles[3] - quartiles[1];
         }
+
+        /// <summary>
+        /// Given a dataset it calculates the variance.
+        /// NOTE: As in R 1/(n-1) is used to calculate the variance
+        /// </summary>
+        /// <param name="dataset"></param>
+        /// <returns></returns>
+        public static double Variance(this IList<double> dataset)
+        {
+            double mean = dataset.Mean();
+
+            double sum = 0;
+
+            foreach (double data in dataset)
+            {
+                sum += Math.Pow((data - mean), 2);
+            }
+
+            double variance = sum / (dataset.Count - 1);
+
+            return variance;
+        }
     }
 }
