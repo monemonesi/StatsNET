@@ -7,6 +7,7 @@ namespace Statistic.Basic.Tests
 {
     public class BaseTestClassHelper
     {
+        protected double _result;
         protected IList<double> _dataSet, _expectedValues;
         private const double _threshold = 0.001;
         

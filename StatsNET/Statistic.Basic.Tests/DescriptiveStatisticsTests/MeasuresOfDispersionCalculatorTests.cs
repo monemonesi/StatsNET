@@ -9,7 +9,6 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
     [TestFixture]
     class MeasuresOfDispersionCalculatorTests : BaseTestClassHelper
     {
-        private double _range;
         private List<double> _expected;
 
         [TestCase("4,-2,5,0", 7)]
@@ -19,9 +18,9 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         {
             _dataSet = GivenASetOfData(data);
 
-            _range = WhenTheRangeIsCalculated();
+            _result = WhenTheRangeIsCalculated();
 
-            ThenItShouldReturnTheExpectedValue(_range, expected);
+            ThenItShouldReturnTheExpectedValue(_result, expected);
         }
 
         [TestCase("1,0,2,3,4",2)]
@@ -32,9 +31,9 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         {
             _dataSet = GivenASetOfData(data);
 
-            _range = WhenTheInterquartileIsCalculated();
+            _result = WhenTheInterquartileIsCalculated();
 
-            ThenItShouldReturnTheExpectedValue(_range, expected);
+            ThenItShouldReturnTheExpectedValue(_result, expected);
         }
 
         private double WhenTheInterquartileIsCalculated()
