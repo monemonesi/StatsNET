@@ -75,6 +75,10 @@ namespace Statistic.Basic.DescriptiveStatistics
             double mean = dataset.Mean();
             double standardDeviation = dataset.StandardDeviation();
 
+            if(standardDeviation <= 0.0000001) {
+                throw new DivideByZeroException("In order to obtain standardized values the dataset must have standard deviation different from 0");
+            }
+
             List<double> standardizedValues = new List<double>();
 
             foreach (var value in dataset)
