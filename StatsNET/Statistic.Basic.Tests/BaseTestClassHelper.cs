@@ -8,7 +8,7 @@ namespace Statistic.Basic.Tests
     public class BaseTestClassHelper
     {
         protected double _result;
-        protected IList<double> _dataSet, _expectedValues;
+        protected IList<double> _dataSet, _expectedValues, _resultingDataset;
         private const double _threshold = 0.001;
         
         protected IList<double> GivenASetOfData(string data)
@@ -30,7 +30,6 @@ namespace Statistic.Basic.Tests
 
         protected void ThenItShouldReturnTheExpectedValues(IList<double> actual, IList<double> expected)
         {
-            //Assert.AreEqual(expected, actual);
             Assert.IsTrue(ValuesAreComparable(actual, expected));
         }
 

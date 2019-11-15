@@ -63,5 +63,26 @@ namespace Statistic.Basic.DescriptiveStatistics
         {
             return Math.Sqrt(dataset.Variance());
         }
+
+        /// <summary>
+        /// Given a dataset it calculates the standardized values, considering mean = 0 and standardDeviation = 1
+        /// NOTE: As in R 1/(n-1) is used to calculate this value
+        /// </summary>
+        /// <param name="dataset"></param>
+        /// <returns></returns>
+        public static List<double> Standardize(this IList<double> dataset) 
+        {
+            double mean = dataset.Mean();
+            double standardDeviation = dataset.StandardDeviation();
+
+            List<double> standardizedValues = new List<double>();
+
+            foreach (var value in dataset)
+            {
+                standardizedValues.Add((value - mean) / standardDeviation);
+            }
+
+            return standardizedValues;
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
     class MeasureOfCentralTendecyCalculatorTests : BaseTestClassHelper
     {
         
-        private IList<double> _relativeFrequencies, _quantiles, _percentages;
+        private IList<double> _relativeFrequencies, _percentages;
 
         [TestCase("22,24,21,30,28,29", 25.66667)]
         [TestCase("1,1,1,1",1)]
@@ -79,9 +79,9 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
             _dataSet = GivenASetOfData(data);
             _expectedValues = GivenASetOfData(expected);
 
-            _quantiles = WhenQuantilesAreCalculated();
+            _resultingDataset = WhenQuantilesAreCalculated();
 
-            ThenItShouldReturnTheExpectedValues(_quantiles, _expectedValues);
+            ThenItShouldReturnTheExpectedValues(_resultingDataset, _expectedValues);
 
         }
 
@@ -92,9 +92,9 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
             _dataSet = GivenASetOfData(data);
             _expectedValues = GivenASetOfData(expected);
 
-            _quantiles = WhenQuantilesAreCalculated();
+            _resultingDataset = WhenQuantilesAreCalculated();
 
-            ThenItShouldReturnTheExpectedValues(_quantiles, _expectedValues);
+            ThenItShouldReturnTheExpectedValues(_resultingDataset, _expectedValues);
         }
 
         [TestCase("22,24,21,30,35", "0.25,0.75" ,"22,30")]
@@ -109,9 +109,9 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
             _percentages = GivenASetOfData(percentile);
             _expectedValues = GivenASetOfData(expected);
 
-            _quantiles = WhenQuantileAreCalculatedWithSpecificPercentages();
+            _resultingDataset = WhenQuantileAreCalculatedWithSpecificPercentages();
 
-            ThenItShouldReturnTheExpectedValues(_quantiles, _expectedValues);
+            ThenItShouldReturnTheExpectedValues(_resultingDataset, _expectedValues);
         }
 
         [TestCase("22,-24,-21,30,35", "0.25,0.75", "-21,30")]
@@ -124,9 +124,9 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
             _percentages = GivenASetOfData(percentile);
             _expectedValues = GivenASetOfData(expected);
 
-            _quantiles = WhenQuantileAreCalculatedWithSpecificPercentages();
+            _resultingDataset = WhenQuantileAreCalculatedWithSpecificPercentages();
 
-            ThenItShouldReturnTheExpectedValues(_quantiles, _expectedValues);
+            ThenItShouldReturnTheExpectedValues(_resultingDataset, _expectedValues);
         }
 
         [TestCase("22,-24,-21,30,35", "-0.25,0.75")]
