@@ -50,7 +50,10 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [TestCase("22.5,24.3,21.6,30.6,35.7", 6.027)]
         [TestCase("22,22,22,22,22,22", 0)]
         [TestCase("-10,4,0,-15,4,5.5", 8.546)]
-        public void StandardVariationShouldReturnTheCorrectValue(string data, double expected)
+        [TestCase("22,24,21,30,28,29", 3.829)]
+        [TestCase("1,1,1,1", 0)]
+        [TestCase("22,24,21,22,25,26,25,24,23,25,25,26,27,25,26", 1.723)]
+        public void StandardDeviationShouldReturnTheCorrectValue(string data, double expected)
         {
             _dataSet = GivenASetOfData(data);
 
@@ -78,6 +81,36 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
             _dataSet = new List<double>() { 22.0,22.0,22.0,22.0};
 
             ThenStandardizeShouldThrownAnException();
+        }
+
+        [TestCase("22,24,21,30,28,29", 0.149)]
+        [TestCase("1,1,1,1", 0)]
+        [TestCase("22,24,21,22,25,26,25,24,23,25,25,26,27,25,26", 0.071)]
+        public void CoefficientOfVariationShouldReturnTheCorrectValue(string data, double expected)
+        {
+            _dataSet = GivenASetOfData(data);
+
+            _result = WhenCoefficietOfVariationIsCalculated();
+
+            ThenItShouldReturnTheExpectedValue(_result, expected);
+        }
+
+        [Test]
+        public void CoefficientOfVariationShouldThrownAnExceptionWhenTheMeanIs0()
+        {
+            _dataSet = new List<double> { -1, 1 };
+
+            ThenCoefficentOfVariationShouldThrownAnException();
+        }
+
+        private void ThenCoefficentOfVariationShouldThrownAnException()
+        {
+            Assert.Throws<DivideByZeroException>(() => WhenCoefficietOfVariationIsCalculated());
+        }
+
+        private double WhenCoefficietOfVariationIsCalculated()
+        {
+            return _dataSet.CoefficientOfVariation();
         }
 
         private void ThenStandardizeShouldThrownAnException()

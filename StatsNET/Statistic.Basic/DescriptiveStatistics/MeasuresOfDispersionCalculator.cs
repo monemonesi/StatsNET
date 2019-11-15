@@ -75,7 +75,7 @@ namespace Statistic.Basic.DescriptiveStatistics
             double mean = dataset.Mean();
             double standardDeviation = dataset.StandardDeviation();
 
-            if(standardDeviation <= 0.0000001) {
+            if(standardDeviation.IsZero()) {
                 throw new DivideByZeroException("In order to obtain standardized values the dataset must have standard deviation different from 0");
             }
 
@@ -87,6 +87,27 @@ namespace Statistic.Basic.DescriptiveStatistics
             }
 
             return standardizedValues;
+        }
+
+        /// <summary>
+        /// Given a dataset it calculate the coefficient of variation as:
+        /// Coefficient of Variation = standardDeviation / mean
+        /// </summary>
+        /// <param name="dataset"></param>
+        /// <returns></returns>
+        public static double CoefficientOfVariation(this IList<double> dataset)
+        {
+            if (dataset.Mean().IsZero())
+            {
+                throw new DivideByZeroException("In order to calculate the coefficient of variation the mean must not be 0");
+            }
+
+            return (dataset.StandardDeviation() / dataset.Mean());
+        }
+
+        private static bool IsZero(this double value)
+        {
+            return Math.Abs(value) <= 0.00000001;
         }
     }
 }
