@@ -44,7 +44,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
 
             _result = WhenWeightedMeanIsCalculated();
 
-            Assert.AreEqual(_result, expected);
+            ThenItShouldReturnTheExpectedValue(_result, expected);
         }
 
         [TestCase("22.5,27.5,32.5", "0.37")]
@@ -53,7 +53,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
             _dataSet = GivenASetOfData(data);
             _relativeFrequencies = GivenASetOfData(relativeFrequencies);
 
-            ThenAnExceptionShouldBeThrown();
+            ThenWeightedMeanShouldThrowsAnException();
         }
 
         [TestCase("22.46,24.1,21.78,30.954", 23.28)]
@@ -135,7 +135,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
             _dataSet = GivenASetOfData(data);
             _percentages = GivenASetOfData(percentile);
 
-            ThenAnExceptionShouldBeThrownFromQuantileFunction();
+            ThenQuantileShouldThrownAnException();
         }
 
         [TestCase("0,-1,2,2", 2)]
@@ -177,12 +177,12 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
             Assert.AreEqual(0, Math.Round(deviationsSum, 4));
         }
 
-        private void ThenAnExceptionShouldBeThrown()
+        private void ThenWeightedMeanShouldThrowsAnException()
         {
             Assert.Throws<ArgumentException>(() => WhenWeightedMeanIsCalculated());
         }
 
-        private void ThenAnExceptionShouldBeThrownFromQuantileFunction()
+        private void ThenQuantileShouldThrownAnException()
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => WhenQuantileAreCalculatedWithSpecificPercentages());
         }
