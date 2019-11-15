@@ -129,7 +129,7 @@ namespace Statistic.Basic.DescriptiveStatistics
         {
             foreach (var num in percentages)
             {
-                if (num < 0 || num > 1) throw new ArgumentOutOfRangeException($"Percentages must be number between 0 and 1");
+                if (num < 0 || num > 1) throw new ArgumentOutOfRangeException("Percentages must be number between 0 and 1");
             }
         }
 
