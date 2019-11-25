@@ -20,7 +20,7 @@ namespace Statistic.Basic.Tests
         [TestCase("1,3,5", "0.0,0.5", "0")]
         public void GetAbsoluteFrequencies(string data, string intervals, string expected)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
             _intervals = GivenASetOfData(intervals);
             _expectedValues = GivenASetOfData(expected);
 
@@ -35,7 +35,7 @@ namespace Statistic.Basic.Tests
         [TestCase("1,3,5", "0.0,0.5", "0", 5)]
         public void GetRelativeFrequencies(string data, string intervals, string expected, int roundTo)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
             _intervals = GivenASetOfData(intervals);
             _expectedValues = GivenASetOfData(expected);
 
@@ -46,12 +46,12 @@ namespace Statistic.Basic.Tests
 
         private Dictionary<double, double> WhenGetRelativeFrequenciesIsCalculated(int roundTo)
         {
-            return _dataSet.GetRelativeFrequenciesForIntervals(_intervals, roundTo);
+            return _dataSet1.GetRelativeFrequenciesForIntervals(_intervals, roundTo);
         }
 
         private Dictionary<double,double> WhenAbsoluteFrequenciesIsCalculated()
         {
-             return _dataSet.GetAbsoluteFrequenciesForIntervals(_intervals);
+             return _dataSet1.GetAbsoluteFrequenciesForIntervals(_intervals);
         }
 
     }

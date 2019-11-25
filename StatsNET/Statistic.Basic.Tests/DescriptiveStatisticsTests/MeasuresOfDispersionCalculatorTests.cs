@@ -15,7 +15,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [TestCase("0,1.5,-0.5,10.98",11.48)]
         public void RangeShouldReturnTheCorrectValue(string data, double expected)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
 
             _result = WhenTheRangeIsCalculated();
 
@@ -28,7 +28,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [TestCase("-10,4,0,-15,4,5.5",14)]
         public void InterquartileRangeShouldReturnTheCorrectValue(string data, double expected)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
 
             _result = WhenTheInterquartileIsCalculated();
 
@@ -40,7 +40,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [TestCase("-10,4,0,-15,4,5.5", 73.041)]
         public void VarianceShouldReturnTheCorrectValue(string data, double expected)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
 
             _result = WhenTheVarianceIsCalculated();
 
@@ -55,7 +55,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [TestCase("22,24,21,22,25,26,25,24,23,25,25,26,27,25,26", 1.723)]
         public void StandardDeviationShouldReturnTheCorrectValue(string data, double expected)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
 
             _result = WhenTheStandardDeviationIsCalculated();
 
@@ -67,7 +67,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [TestCase("-10,4,0,-15,4,5.5", "-0.946,0.692,0.224,-1.531,0.692,0.868")]
         public void StandardizeMethodShouldReturnTheStandardizedSetOfValues(string data, string expected)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
             _expectedValues = GivenASetOfData(expected);
 
             _resultingDataset = WhenTheStandardizedValuesAreCalculated();
@@ -78,7 +78,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [Test]
         public void StandardizedMethodShouldThrownAnExceptionWhenDatasetHasStandardDeviationEqualZero()
         {
-            _dataSet = new List<double>() { 22.0,22.0,22.0,22.0};
+            _dataSet1 = new List<double>() { 22.0,22.0,22.0,22.0};
 
             ThenStandardizeShouldThrownAnException();
         }
@@ -88,7 +88,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [TestCase("22,24,21,22,25,26,25,24,23,25,25,26,27,25,26", 0.071)]
         public void CoefficientOfVariationShouldReturnTheCorrectValue(string data, double expected)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
 
             _result = WhenCoefficietOfVariationIsCalculated();
 
@@ -98,7 +98,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [Test]
         public void CoefficientOfVariationShouldThrownAnExceptionWhenTheMeanIs0()
         {
-            _dataSet = new List<double> { -1, 1 };
+            _dataSet1 = new List<double> { -1, 1 };
 
             ThenCoefficentOfVariationShouldThrownAnException();
         }
@@ -110,7 +110,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
 
         private double WhenCoefficietOfVariationIsCalculated()
         {
-            return _dataSet.CoefficientOfVariation();
+            return _dataSet1.CoefficientOfVariation();
         }
 
         private void ThenStandardizeShouldThrownAnException()
@@ -120,27 +120,27 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
 
         private IList<double> WhenTheStandardizedValuesAreCalculated()
         {
-            return _dataSet.Standardize();
+            return _dataSet1.Standardize();
         }
 
         private double WhenTheStandardDeviationIsCalculated()
         {
-            return _dataSet.StandardDeviation();
+            return _dataSet1.StandardDeviation();
         }
 
         private double WhenTheVarianceIsCalculated()
         {
-            return _dataSet.Variance();
+            return _dataSet1.Variance();
         }
 
         private double WhenTheInterquartileIsCalculated()
         {
-            return _dataSet.InterQuartile();
+            return _dataSet1.InterQuartile();
         }
 
         private double WhenTheRangeIsCalculated()
         {
-            return _dataSet.Range();
+            return _dataSet1.Range();
         }
     }
 }
