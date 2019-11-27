@@ -6,14 +6,28 @@ namespace Statistic.Basic.DescriptiveStatistics
 {
     public static class CorrelationCalculator
     {
-        public static double Correlation(this IList<double> datasetX, IList<double> datasetY, CorrelationType type)
+        public static double Correlation(this IList<double> datasetX, IList<double> datasetY, CorrelationType correlationType)
         {
 
-            if(datasetX.Count != datasetY.Count)
+            if (datasetX.Count != datasetY.Count)
             {
                 throw new ArgumentException("Inserted datasets have incompatible dimensions");
             }
 
+            switch (correlationType)
+            {
+                case CorrelationType.Pearson:
+                    return CalculatePearsonCorrelation(datasetX, datasetY);
+                case CorrelationType.Spearman:
+                    return 0; ;
+                default:
+                    throw new ArgumentException("The specified correlation is not supported");
+            }
+         
+        }
+
+        private static double CalculatePearsonCorrelation(IList<double> datasetX, IList<double> datasetY)
+        {
             double meanX = datasetX.Mean();
             double meanY = datasetY.Mean();
 

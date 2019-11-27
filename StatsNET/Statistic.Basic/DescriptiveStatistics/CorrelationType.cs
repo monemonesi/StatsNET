@@ -6,7 +6,8 @@ namespace Statistic.Basic.DescriptiveStatistics
 {
     public enum CorrelationType
     {
-        Pearson
+        Pearson,
+        Spearman
     }
 
 }
