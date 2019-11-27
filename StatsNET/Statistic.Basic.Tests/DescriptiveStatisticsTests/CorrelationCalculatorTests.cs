@@ -23,6 +23,21 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
             ThenItShouldReturnTheExpectedValue(_result, expected);
         }
 
+        [TestCase("-0,-1,-2,-3,-4,-5,-6,-7,-8,-9", "0,10,20")]
+        [TestCase("-0", "0,10,20")]
+        public void CorrelationShouldTrhownAnExceptionWithDatasetsOfDifferentLenght(string data1, string data2)
+        {
+            _dataSet1 = GivenASetOfData(data1);
+            _dataset2 = GivenASetOfData(data2);
+
+            ThenCorrelationCalculatorShouldThrownAnException();
+        }
+
+        private void ThenCorrelationCalculatorShouldThrownAnException()
+        {
+            Assert.Throws<ArgumentException>(() => WhenPearsonCoefficientIsCalculated());
+        }
+
         private double WhenPearsonCoefficientIsCalculated()
         {
             return _dataSet1.Correlation(_dataset2, CorrelationType.Pearson);

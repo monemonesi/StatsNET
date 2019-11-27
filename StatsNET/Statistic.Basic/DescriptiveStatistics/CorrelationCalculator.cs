@@ -8,7 +8,12 @@ namespace Statistic.Basic.DescriptiveStatistics
     {
         public static double Correlation(this IList<double> datasetX, IList<double> datasetY, CorrelationType type)
         {
-            //TODO: Defensive code against possible exceptions (different lenghts, etc..)
+
+            if(datasetX.Count != datasetY.Count)
+            {
+                throw new ArgumentException("Inserted datasets have incompatible dimensions");
+            }
+
             double meanX = datasetX.Mean();
             double meanY = datasetY.Mean();
 
