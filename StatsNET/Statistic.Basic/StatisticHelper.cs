@@ -65,6 +65,49 @@ namespace Statistic.Basic
             return relativeFrequencies;
         }
 
+        /// <summary>
+        /// Given a dataset returns a list with the average rank for each value
+        /// </summary>
+        /// <param name="dataset"></param>
+        /// <returns></returns>
+        //public static IList<double> GetRank( this IList<double> dataset)
+        //{
+        //    return new List<double>();
+        //}
+        public static IList<double> GetRank(this IList<double> dataset)
+        {
+            Dictionary<double, double> numberOfDuplicatePerValue = new Dictionary<double, double>();
+            Dictionary<double, double> totalRanksPerValue = new Dictionary<double, double>();
+
+            List<double> sortedDataSet = dataset.OrderBy(x => x).ToList();
+
+            for (int i = 0; i < dataset.Count; ++i)
+            {
+                double referenceKey = sortedDataSet[i];
+
+                if (numberOfDuplicatePerValue.ContainsKey(referenceKey))
+                {
+                    numberOfDuplicatePerValue[referenceKey]++;
+                    totalRanksPerValue[referenceKey] += (i + 1);
+                }
+                else
+                {
+                    numberOfDuplicatePerValue.Add(referenceKey, 1);
+                    totalRanksPerValue.Add(referenceKey, i + 1);
+                }
+            }
+
+            List<double> ranks = new List<double>();
+
+            foreach (double rowData in dataset)
+            {
+                double rank = totalRanksPerValue[rowData] / numberOfDuplicatePerValue[rowData];
+                ranks.Add(rank);
+            }
+
+            return ranks;
+        }
+
         private static void CalculateAbsoluteFrequency(Dictionary<double, double> absoluteFrequencies, double start, double end, double data)
         {
             if (DataIsInRange(data, start, end))
