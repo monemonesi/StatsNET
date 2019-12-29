@@ -6,7 +6,7 @@ using Statistic.Basic.DescriptiveStatistics;
 namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
 {
     [TestFixture]
-    class MeasureOfCentralTendecyCalculatorTests : BaseTestClassHelper
+    class MeasureOfCentralTendencyCalculatorTests : BaseTestClassHelper
     {
         
         private IList<double> _relativeFrequencies, _percentages;

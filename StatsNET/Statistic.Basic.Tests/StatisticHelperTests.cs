@@ -46,7 +46,7 @@ namespace Statistic.Basic.Tests
 
         [TestCase("3,6,8,9", "1,2,3,4")]
         [TestCase("5,4,3,2,1", "5,4,3,2,1")]
-        [TestCase("3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5", "4.5, 1.5, 6, 1.5, 8, 11, 3, 10, 8, 4.5")]
+        [TestCase("3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5", "4.5, 1.5, 6.0, 1.5, 8.0, 11.0, 3.0, 10.0, 8.0, 4.5, 8.0")]
         [TestCase("3, 0.0, 4.5, 1.0, 5, 9, 2, 6, 5, 3, 5", "4.5, 1.0, 6.0, 2.0, 8.0, 11.0, 3.0, 10.0, 8.0, 4.5, 8.0")]
         public void GetRankShouldReturnTheCorrectValues(string data, string expected)
         {

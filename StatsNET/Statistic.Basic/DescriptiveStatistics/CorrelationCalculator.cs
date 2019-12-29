@@ -11,7 +11,7 @@ namespace Statistic.Basic.DescriptiveStatistics
 
             if (datasetX.Count != datasetY.Count)
             {
-                throw new ArgumentException("Inserted datasets have incompatible dimensions");
+                throw new ArgumentException("Datasets should have the same dimensions");
             }
 
             switch (correlationType)
