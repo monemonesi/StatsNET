@@ -70,10 +70,6 @@ namespace Statistic.Basic
         /// </summary>
         /// <param name="dataset"></param>
         /// <returns></returns>
-        //public static IList<double> GetRank( this IList<double> dataset)
-        //{
-        //    return new List<double>();
-        //}
         public static IList<double> GetRank(this IList<double> dataset)
         {
             Dictionary<double, double> numberOfDuplicatePerValue = new Dictionary<double, double>();
