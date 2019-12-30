@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Statistic.Basic.DescriptiveStatistics
 {
-    public static class MeasureOfCentralTendecyCalculator
+    public static class MeasureOfCentralTendencyCalculator
     {
         /// <summary>
         /// Given a dataset it calculates the arithmetic mean

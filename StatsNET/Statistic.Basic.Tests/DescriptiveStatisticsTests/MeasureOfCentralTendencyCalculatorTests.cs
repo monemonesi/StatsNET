@@ -6,7 +6,7 @@ using Statistic.Basic.DescriptiveStatistics;
 namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
 {
     [TestFixture]
-    class MeasureOfCentralTendecyCalculatorTests : BaseTestClassHelper
+    class MeasureOfCentralTendencyCalculatorTests : BaseTestClassHelper
     {
         
         private IList<double> _relativeFrequencies, _percentages;
@@ -16,7 +16,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [TestCase("22,24,21,22,25,26,25,24,23,25,25,26,27,25,26",24.4)]
         public void ArithmeticMeanShouldReturnTheCorrectValue(string data, double expected)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
 
             _result = WhenTheMeanIsCalculated();
 
@@ -29,7 +29,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [TestCase("22,24,21,22,25,26,25,24,23,25,25,26,27,25,26")]
         public void ArithmeticMeanProperties(string data)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
 
             _result = WhenTheMeanIsCalculated();
 
@@ -39,7 +39,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [TestCase("22.5,27.5,32.5","0.37, 0.58, 0.05",25.9)]
         public void WeightedMeanShouldReturnTheCorrectValue(string data, string relativeFrequencies, double expected)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
             _relativeFrequencies =GivenASetOfData(relativeFrequencies);
 
             _result = WhenWeightedMeanIsCalculated();
@@ -50,7 +50,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [TestCase("22.5,27.5,32.5", "0.37")]
         public void WeightedMeanShouldReturnAnExceptionWhenDataIsIncorrect(string data, string relativeFrequencies)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
             _relativeFrequencies = GivenASetOfData(relativeFrequencies);
 
             ThenWeightedMeanShouldThrowsAnException();
@@ -64,7 +64,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [TestCase("22,24,21,22,25,26,25,24,23,25,25,26,27,25,26",25)]
         public void TheMedianShouldReturnTheCorrectValue(string data, double expected)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
 
             _result = WhenMedianIsCalculated();
 
@@ -76,7 +76,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [TestCase("22.5,24.3,21.6,30.6,35.7", "21.6,22.5,24.3,30.6,35.7")]
         public void TheQuantileShoulReturnTheCorrectQuartileValueIfNoOptionIsSpecified(string data, string expected)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
             _expectedValues = GivenASetOfData(expected);
 
             _resultingDataset = WhenQuantilesAreCalculated();
@@ -89,7 +89,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [TestCase("26,22,22,23,24,24,25,25,25,25,29,25,21,27,26,26,27,27,26,28,31,28,25,29,29,29,29,30,30,30,28", "21,25,26,29,31")]
         public void TheQuantileShouldReturnQuartileValuesIfNoOptionIsSoecifiedAndWithDuplicateNumber(string data, string expected)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
             _expectedValues = GivenASetOfData(expected);
 
             _resultingDataset = WhenQuantilesAreCalculated();
@@ -105,7 +105,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [TestCase("22", "1", "22")]
         public void QuantileShouldAllowCustomOption(string data, string percentile, string expected)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
             _percentages = GivenASetOfData(percentile);
             _expectedValues = GivenASetOfData(expected);
 
@@ -120,7 +120,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [TestCase("-22,-22,-22,-22", "0", "-22")]
         public void QuatileShouldReturnTheCorrectValueWhenNegativeValueInDataset(string data, string percentile, string expected)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
             _percentages = GivenASetOfData(percentile);
             _expectedValues = GivenASetOfData(expected);
 
@@ -132,7 +132,7 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [TestCase("22,-24,-21,30,35", "-0.25,0.75")]
         public void QuantileShouldThrownAnExceptionWhenPercantagesAreOutOfRange0To1(string data, string percentile)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
             _percentages = GivenASetOfData(percentile);
 
             ThenQuantileShouldThrownAnException();
@@ -143,9 +143,9 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
         [TestCase("-1,-0,0.05,-1,0,0.0", 0)]
         public void ModeShouldReturnTheValueWithMaxFrequency(string data, double expected)
         {
-            _dataSet = GivenASetOfData(data);
+            _dataSet1 = GivenASetOfData(data);
 
-            _result = _dataSet.Mode();
+            _result = _dataSet1.Mode();
 
             ThenItShouldReturnTheExpectedValue(_result, expected);
         }
@@ -153,23 +153,23 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
 
         private IList<double> WhenQuantileAreCalculatedWithSpecificPercentages()
         {
-            return _dataSet.Quantile(_percentages);
+            return _dataSet1.Quantile(_percentages);
         }
 
         private IList<double> WhenQuantilesAreCalculated()
         {
-            return _dataSet.Quantile();
+            return _dataSet1.Quantile();
         }
 
         private double WhenMedianIsCalculated()
         {
-            return Math.Round(_dataSet.Median(),5);
+            return Math.Round(_dataSet1.Median(),5);
         }
 
         private void ThenTheSumOfTheDeviationOfEachVariableShoulbBeZero(double mean)
         {
             double deviationsSum = 0;
-            foreach (var data in _dataSet)
+            foreach (var data in _dataSet1)
             {
                 deviationsSum += (data - mean);
             }
@@ -189,12 +189,12 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
 
         private double WhenWeightedMeanIsCalculated()
         {
-            return _dataSet.WeightedMean(_relativeFrequencies);
+            return _dataSet1.WeightedMean(_relativeFrequencies);
         }
 
         private double WhenTheMeanIsCalculated()
         {
-            return Math.Round(_dataSet.Mean(),5);
+            return Math.Round(_dataSet1.Mean(),5);
         }
     }
 }
