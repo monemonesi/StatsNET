@@ -19,7 +19,7 @@ namespace Statistic.Basic.DescriptiveStatistics
                 case CorrelationType.Pearson:
                     return CalculatePearsonCorrelation(datasetX, datasetY);
                 case CorrelationType.Spearman:
-                    return 0; ;
+                    return 0;
                 default:
                     throw new ArgumentException("The specified correlation is not supported");
             }

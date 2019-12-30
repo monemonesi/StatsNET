@@ -62,7 +62,6 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
             ThenItShouldReturnTheExpectedValue(_result, expected);
         }
 
-        [TestCase("30,25,12,45,50,52,38,39,45,33", "-0.561,-0.968,-2.025,0.659,1.065,1.228,0.089,0.171,0.659,-0.312")]
         [TestCase("22.5,24.3,21.6,30.6,35.7", "-0.737,-0.438,-0.886,0.607,1.453")]
         [TestCase("-10,4,0,-15,4,5.5", "-0.946,0.692,0.224,-1.531,0.692,0.868")]
         public void StandardizeMethodShouldReturnTheStandardizedSetOfValues(string data, string expected)
