@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Statistic.Basic.DescriptiveStatistics
@@ -19,11 +20,41 @@ namespace Statistic.Basic.DescriptiveStatistics
                 case CorrelationType.Pearson:
                     return CalculatePearsonCorrelation(datasetX, datasetY);
                 case CorrelationType.Spearman:
-                    return 0;
+                    return CalculateSpearmanRankCorrelation(datasetX, datasetY);
                 default:
                     throw new ArgumentException("The specified correlation is not supported");
             }
          
+        }
+
+        private static double CalculateSpearmanRankCorrelation(IList<double> datasetX, IList<double> datasetY)
+        {
+            var rankX = datasetX.GetRank();
+            var rankY = datasetY.GetRank();
+
+            double numerator = CalculateSpearmanNumerator(rankX, rankY);
+
+            double denominator = CalculateSpearmanDenominator(datasetX.Count());
+
+            var result = 1 - (numerator / denominator);
+            return result;
+        }
+
+        private static double CalculateSpearmanDenominator(int n)
+        {
+            return n * (n * n - 1);
+        }
+
+        private static double CalculateSpearmanNumerator(IList<double> rankX, IList<double> rankY)
+        {
+            double denominator = 0.0;
+
+            for (int i = 0; i < rankX.Count; i++)
+            {
+                denominator += Math.Pow(rankX[i] - rankY[i],2);
+            }
+
+            return 6 * denominator; 
         }
 
         private static double CalculatePearsonCorrelation(IList<double> datasetX, IList<double> datasetY)
