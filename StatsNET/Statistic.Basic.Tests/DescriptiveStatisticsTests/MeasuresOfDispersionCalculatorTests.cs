@@ -47,6 +47,25 @@ namespace Statistic.Basic.Tests.DescriptiveStatisticsTests
             ThenItShouldReturnTheExpectedValue(_result, expected);
         }
 
+        [TestCase("-0,-1,-2,-3,-4,-5,-6,-7,-8,-9", "0,10,20,30,40,50,60,70,80,90", -91.66667)]
+        [TestCase("0,1,2,3,4,5,6,7,8,9", "0,10,20,30,40,50,60,70,80,90", 91.66667)]
+        [TestCase("10.85,10.44,10.50,10.89,10.62", "7.84,7.96,7.81,7.47,7.74", -0.025675)]
+        [TestCase("1,1,1,-9,5", "5,5,4,0,6", 12)]
+        public void CovarianceShouldReturnTheCorrectValue(string data1, string data2, double expected)
+        {
+            _dataSet1 = GivenASetOfData(data1);
+            _dataset2 = GivenASetOfData(data2);
+
+            _result = WhenTheCovarianceIsCalculated();
+
+            ThenItShouldReturnTheExpectedValue(_result, expected);
+        }
+
+        private double WhenTheCovarianceIsCalculated()
+        {
+            return _dataSet1.Covariance(_dataset2);
+        }
+
         [TestCase("22.5,24.3,21.6,30.6,35.7", 6.027)]
         [TestCase("22,22,22,22,22,22", 0)]
         [TestCase("-10,4,0,-15,4,5.5", 8.546)]
