@@ -27,36 +27,20 @@ namespace Statistic.Basic.DescriptiveStatistics
          
         }
 
-        //TODO: Spearman rank should be calculated using covar formula: https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient
-        //TODO: https://en.wikipedia.org/wiki/Covariance , https://en.wikipedia.org/wiki/Ranking#Fractional_ranking_.28.221_2.5_2.5_4.22_ranking.29
         private static double CalculateSpearmanRankCorrelation(IList<double> datasetX, IList<double> datasetY)
         {
             var rankX = datasetX.GetRank();
             var rankY = datasetY.GetRank();
 
-            double numerator = CalculateSpearmanNumerator(rankX, rankY);
+            double covar = MeasuresOfDispersionCalculator.Covariance(rankX, rankY);
 
-            double denominator = CalculateSpearmanDenominator(datasetX.Count());
+            double standardDeviationX = rankX.StandardDeviation();
+            double standardDeviationY = rankY.StandardDeviation();
 
-            var result = 1 - (numerator / denominator);
-            return result;
-        }
+            double spermanRankCorr = covar / (standardDeviationX * standardDeviationY);
 
-        private static double CalculateSpearmanDenominator(int n)
-        {
-            return n * (n * n - 1);
-        }
+            return spermanRankCorr;
 
-        private static double CalculateSpearmanNumerator(IList<double> rankX, IList<double> rankY)
-        {
-            double denominator = 0.0;
-
-            for (int i = 0; i < rankX.Count; i++)
-            {
-                denominator += Math.Pow(rankX[i] - rankY[i],2);
-            }
-
-            return 6 * denominator; 
         }
 
         private static double CalculatePearsonCorrelation(IList<double> datasetX, IList<double> datasetY)
