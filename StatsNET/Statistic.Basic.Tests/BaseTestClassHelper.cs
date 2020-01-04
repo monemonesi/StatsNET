@@ -55,7 +55,7 @@ namespace Statistic.Basic.Tests
 
         private bool IsInThreshold (double value)
         {
-            return value < _threshold;
+            return Math.Abs(value) < _threshold;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Statistic.Basic.DescriptiveStatistics
@@ -19,11 +20,27 @@ namespace Statistic.Basic.DescriptiveStatistics
                 case CorrelationType.Pearson:
                     return CalculatePearsonCorrelation(datasetX, datasetY);
                 case CorrelationType.Spearman:
-                    return 0; ;
+                    return CalculateSpearmanRankCorrelation(datasetX, datasetY);
                 default:
                     throw new ArgumentException("The specified correlation is not supported");
             }
          
+        }
+
+        private static double CalculateSpearmanRankCorrelation(IList<double> datasetX, IList<double> datasetY)
+        {
+            var rankX = datasetX.GetRank();
+            var rankY = datasetY.GetRank();
+
+            double covar = MeasuresOfDispersionCalculator.Covariance(rankX, rankY);
+
+            double standardDeviationX = rankX.StandardDeviation();
+            double standardDeviationY = rankY.StandardDeviation();
+
+            double spermanRankCorr = covar / (standardDeviationX * standardDeviationY);
+
+            return spermanRankCorr;
+
         }
 
         private static double CalculatePearsonCorrelation(IList<double> datasetX, IList<double> datasetY)

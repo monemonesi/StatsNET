@@ -53,6 +53,23 @@ namespace Statistic.Basic.DescriptiveStatistics
             return variance;
         }
 
+        public static double Covariance(this IList<double> datasetX, IList<double> datasetY)
+        {
+            double meanX = datasetX.Mean();
+            double meanY = datasetY.Mean();
+
+            double sum = 0;
+
+            for (int i = 0; i < datasetX.Count(); i++)
+            {
+                sum += (datasetX[i] - meanX) * (datasetY[i] - meanY);
+            }
+
+            double covariance = sum / (datasetX.Count - 1);
+            
+            return covariance;
+        }
+
         /// <summary>
         /// Given a dataset it calculate the stadard deviation.
         /// NOTE: As in R 1/(n-1) is used to calculate this value

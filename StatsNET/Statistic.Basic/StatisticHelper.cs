@@ -66,7 +66,7 @@ namespace Statistic.Basic
         }
 
         /// <summary>
-        /// Given a dataset returns a list with the average rank for each value
+        /// Given a dataset returns a list with the fractional (or averaged) rank for each value
         /// </summary>
         /// <param name="dataset"></param>
         /// <returns></returns>
