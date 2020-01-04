@@ -1,2 +1,2 @@
 # StatsNET
-Statistical library for .NET
+A simple WIP Statistical library for .NET
